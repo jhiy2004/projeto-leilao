@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 /**
  *
  * @author jhiy2
  */
 public class Anuncio {
+    private final String id;
     private final List<Lance> lances;
     private final Vendedor vendedor;
     private final LocalDateTime dataCriacao;
@@ -24,16 +26,21 @@ public class Anuncio {
     private Estado estado;
     
     
-    public Anuncio(String nome, String descricao, Vendedor vendedor, LocalDateTime dataEncerramento, double valorInicial){
+    public Anuncio(String id, String nome, String descricao, Vendedor vendedor, LocalDateTime dataCriacao, LocalDateTime dataEncerramento, double valorInicial){
+        this.id = (id == null) ? UUID.randomUUID().toString() : id;
         this.nome = nome;
         this.descricao = descricao;
         this.vendedor = vendedor;
-        this.dataCriacao = LocalDateTime.now();
+        this.dataCriacao = (dataCriacao == null) ? LocalDateTime.now() : dataCriacao;
         this.dataEncerramento = dataEncerramento;
         this.estado = Estado.ATIVO;
         this.valorInicial = valorInicial;
         
         this.lances = new ArrayList<>();
+    }
+    
+    public String getId(){
+        return this.id;
     }
     
     public String getNome(){
