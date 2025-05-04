@@ -34,6 +34,28 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Login"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="usuarioLogin">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Login de Usu&#xe1;rio"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usuarioLoginActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="anunciosMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="An&#xfa;ncios"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="anunciosAtivos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="An&#xfa;ncios Ativos"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

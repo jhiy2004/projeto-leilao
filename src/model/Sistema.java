@@ -9,5 +9,25 @@ package model;
  * @author jhiy2
  */
 public class Sistema {
+    private static Sistema instance = null;
+    private static boolean logado = false;
     
+    private Sistema(){
+    }
+    
+    public static Sistema getInstance(){
+        if(instance == null){
+            instance = new Sistema();
+        }
+        
+        return instance;
+    }
+    
+    public static void logar(){
+        logado = true;
+    }
+    
+    public boolean isLogged(){
+        return logado;
+    }
 }
