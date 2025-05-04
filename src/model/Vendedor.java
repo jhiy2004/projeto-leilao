@@ -4,10 +4,17 @@
  */
 package model;
 
+import controller.AnuncioController;
+import java.util.Date;
+
 /**
  *
  * @author jhiy2
  */
-public class Vendedor {
+public class Vendedor extends Usuario {
     
+    
+    public void criarAnuncio(String nomeAnuncio, Date dataInicioAnuncio, Date dataFimAnuncio){
+        //AnuncioController.criarAnuncio(this, nomeAnuncio, dataInicioAnuncio, dataFimAnuncio);
+    }
 }

@@ -8,6 +8,6 @@ package model;
  *
  * @author jhiy2
  */
-public class Comprador {
+public class Comprador extends Usuario {
     
 }

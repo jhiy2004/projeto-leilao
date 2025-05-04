@@ -4,12 +4,17 @@
  */
 package main;
 
+import ui.MainUI;
+
 /**
  *
  * @author jhiy2
  */
 public class Main {
     public static void main(String args[]){
-        System.out.println("Hello World");
+        MainUI mainUI = new MainUI();
+        mainUI.setVisible(true);
+        mainUI.setTitle("Sistema Gerenciador de Leilões");
+        mainUI.toFront();
     }
 }
