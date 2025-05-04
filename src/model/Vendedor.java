@@ -5,7 +5,7 @@
 package model;
 
 import controller.AnuncioController;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.util.Date;
 public class Vendedor extends Usuario {
     
     
-    public void criarAnuncio(String nomeAnuncio, Date dataInicioAnuncio, Date dataFimAnuncio){
-        //AnuncioController.criarAnuncio(this, nomeAnuncio, dataInicioAnuncio, dataFimAnuncio);
+    public void criarAnuncio(String nomeAnuncio, String descricaoAnuncio, LocalDateTime dataInicioAnuncio, LocalDateTime dataFimAnuncio, double valorInicial){
+        //AnuncioController.criarAnuncio(nomeAnuncio, descricaoAnuncio, this, dataInicioAnuncio, dataFimAnuncio, valorInicial);
     }
 }

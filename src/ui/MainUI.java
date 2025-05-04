@@ -31,6 +31,9 @@ public class MainUI extends javax.swing.JFrame {
         cadastroVendedor = new javax.swing.JMenuItem();
         cadastroComprador = new javax.swing.JMenuItem();
         loginMenu = new javax.swing.JMenu();
+        usuarioLogin = new javax.swing.JMenuItem();
+        anunciosMenu = new javax.swing.JMenu();
+        anunciosAtivos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,7 +63,23 @@ public class MainUI extends javax.swing.JFrame {
         jMenuBar1.add(cadastroMenu);
 
         loginMenu.setText("Login");
+
+        usuarioLogin.setText("Login de Usuário");
+        usuarioLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioLoginActionPerformed(evt);
+            }
+        });
+        loginMenu.add(usuarioLogin);
+
         jMenuBar1.add(loginMenu);
+
+        anunciosMenu.setText("Anúncios");
+
+        anunciosAtivos.setText("Anúncios Ativos");
+        anunciosMenu.add(anunciosAtivos);
+
+        jMenuBar1.add(anunciosMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -95,6 +114,13 @@ public class MainUI extends javax.swing.JFrame {
         cadUI.setLocationRelativeTo(this);
         cadUI.setVisible(true);
     }//GEN-LAST:event_cadastroCompradorActionPerformed
+
+    private void usuarioLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioLoginActionPerformed
+        // TODO add your handling code here:
+        LoginUsuarioUI loginUI = new LoginUsuarioUI(this, true);
+        loginUI.setLocationRelativeTo(this);
+        loginUI.setVisible(true);
+    }//GEN-LAST:event_usuarioLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,10 +158,13 @@ public class MainUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem anunciosAtivos;
+    private javax.swing.JMenu anunciosMenu;
     private javax.swing.JMenuItem cadastroComprador;
     private javax.swing.JMenu cadastroMenu;
     private javax.swing.JMenuItem cadastroVendedor;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu loginMenu;
+    private javax.swing.JMenuItem usuarioLogin;
     // End of variables declaration//GEN-END:variables
 }
