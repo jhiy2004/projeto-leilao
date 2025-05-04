@@ -31,7 +31,7 @@ public class AnuncioController {
     public AnuncioController(AnuncioDAO anuncioDAO, LanceDAO lanceDAO, Map<String, Vendedor> vendedores, Map<String, Comprador> compradores) {
         this.anuncioDAO = anuncioDAO;
         try {
-            this.anuncios = anuncioDAO.carregar(vendedores);
+            this.anuncios = anuncioDAO.carregar();
         } catch (IOException ex) {
             Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao carregar anúncios", ex);
             this.anuncios = new HashMap<>();

@@ -19,9 +19,15 @@ import model.Vendedor;
  *
  * @author jhiy2
  */
-public class AnuncioDAO {
+public class AnuncioDAO implements DAO<Anuncio> {
     private static final String FILENAME = "anuncios.csv";
+    private final Map<String, Vendedor> vendedores;
     
+    public AnuncioDAO(Map<String, Vendedor> vendedores){
+        this.vendedores = vendedores;
+    }
+    
+    @Override
     public void salvar(Anuncio anuncio) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))){
             //id,nome,descricao,vendedorId,dataCriacao,dataEncerramento,valorInicial
@@ -39,7 +45,8 @@ public class AnuncioDAO {
 
     }
     
-    public Map<String, Anuncio> carregar(Map<String, Vendedor> vendedores) throws IOException{
+    @Override
+    public Map<String, Anuncio> carregar() throws IOException{
         Map<String, Anuncio> anuncios = new HashMap<>();
         
         try(BufferedReader reader = new BufferedReader(new FileReader(FILENAME))){
@@ -54,7 +61,7 @@ public class AnuncioDAO {
                 LocalDateTime dataEncerramento = LocalDateTime.parse(campos[5]);
                 double valorInicial = Double.parseDouble(campos[6]);
 
-                Vendedor vendedor = vendedores.get(vendedorId);
+                Vendedor vendedor = this.vendedores.get(vendedorId);
                 if(vendedor != null){
                     Anuncio anuncio = new Anuncio(id, nome, descricao, vendedor, dataCriacao, dataEncerramento, valorInicial);
                     anuncios.put(id, anuncio);

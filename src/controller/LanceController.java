@@ -21,14 +21,14 @@ import persistence.LanceDAO;
  */
 public class LanceController {
     private Map<String, Lance> lances;
-    private final LanceDAO lanceDAO;
+    private LanceDAO lanceDAO;
     
     public LanceController(LanceDAO lanceDAO, Map<String, Comprador> compradores, Map<String, Anuncio> anuncios) {
-        this.lances = new HashMap<>();
         this.lanceDAO = lanceDAO;
+        this.lances = new HashMap<>();
 
         try {
-            this.lances = lanceDAO.carregar(compradores, anuncios);
+            this.lances = this.lanceDAO.carregar();
         } catch (IOException ex) {
             Logger.getLogger(LanceController.class.getName()).log(Level.SEVERE, "Erro ao carregar lances", ex);
             this.lances = new HashMap<>();
@@ -48,7 +48,7 @@ public class LanceController {
         lances.put(lance.getId(), lance);
 
         try {
-            lanceDAO.salvar(lance);
+            this.lanceDAO.salvar(lance);
         } catch (IOException ex) {
             Logger.getLogger(LanceController.class.getName()).log(Level.SEVERE, null, ex);
             return false;

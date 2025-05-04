@@ -23,9 +23,18 @@ import model.Lance;
  *
  * @author jhiy2
  */
-public class LanceDAO {
+public class LanceDAO implements DAO<Lance>{
     private static final String FILENAME = "lances.csv";
+    private final Map<String, Comprador> compradores;
+    private final Map<String, Anuncio> anuncios;
+
     
+    public LanceDAO(Map<String, Comprador> compradores, Map<String, Anuncio> anuncios){
+        this.compradores = compradores;
+        this.anuncios = anuncios;
+    }
+    
+    @Override
     public void salvar(Lance lance) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))){
             //id,compradorId,valor,data,anuncioId
@@ -41,7 +50,8 @@ public class LanceDAO {
 
     }
     
-    public Map<String, Lance> carregar(Map<String, Comprador> compradores, Map<String, Anuncio> anuncios) throws IOException {
+    @Override
+    public Map<String, Lance> carregar() throws IOException {
         Map<String, Lance> lances = new HashMap<>();
         List<Lance> lancesList = new ArrayList<>();
 
@@ -55,8 +65,8 @@ public class LanceDAO {
                 LocalDateTime data = LocalDateTime.parse(campos[3]);
                 String anuncioId = campos[4];
 
-                Comprador comprador = compradores.get(compradorId);
-                Anuncio anuncio = anuncios.get(anuncioId);
+                Comprador comprador = this.compradores.get(compradorId);
+                Anuncio anuncio = this.anuncios.get(anuncioId);
                 if (comprador != null && anuncio != null) {
                     Lance lance = new Lance(id, comprador, valor, data, anuncio);
                     lances.put(id, lance);
