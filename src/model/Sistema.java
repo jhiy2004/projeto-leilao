@@ -23,7 +23,7 @@ public class Sistema {
         return instance;
     }
     
-    public static void logar(){
+    public void logar(){
         logado = true;
     }
     

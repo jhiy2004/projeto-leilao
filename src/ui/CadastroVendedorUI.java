@@ -5,6 +5,8 @@
 package ui;
 
 import controller.UsuarioController;
+import java.util.UUID;
+import model.Vendedor;
 
 /**
  *
@@ -144,10 +146,13 @@ public class CadastroVendedorUI extends javax.swing.JDialog {
         String email = emailField.getText();
         String senha = senhaField.getText();
         String cpf = cpfField.getText();
-        int tipo = 1; // Tipo vendedor
+        String tipo = "vendedor";
+        UUID id = UUID.randomUUID();
+        
+        Vendedor c = new Vendedor(id, nome, email, senha, cpf);
         
         UsuarioController userControl = new UsuarioController();
-        //userControl.addUser(nome, email, senha, cpf, tipo);
+        userControl.addUser(c);
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
     private void cpfFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfFieldActionPerformed
