@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.UUID;
+
 /**
  *
  * @author jhiy2
@@ -12,6 +14,8 @@ public abstract class Usuario {
     protected String nome;
     protected String email;
     protected String senha;
+    protected String cpf;
+    protected UUID id;
 
     public String getNome() {
         return nome;
@@ -35,5 +39,17 @@ public abstract class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    
+    public UUID getId() {
+        return id;
     }
 }

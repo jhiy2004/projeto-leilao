@@ -5,6 +5,8 @@
 package ui;
 
 import controller.UsuarioController;
+import java.util.UUID;
+import model.Comprador;
 
 /**
  *
@@ -18,6 +20,7 @@ public class CadastroCompradorUI extends javax.swing.JDialog {
     public CadastroCompradorUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Cadastro de Comprador");
     }
 
     /**
@@ -139,15 +142,86 @@ public class CadastroCompradorUI extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeFieldActionPerformed
 
+    private boolean cpfValido(String cpf) {
+        // Remove caracteres não numéricos
+        cpf = cpf.replaceAll("[^\\d]", "");
+
+        // CPF deve ter 11 dígitos e não pode ter todos os dígitos iguais
+        if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}")) {
+            return false;
+        }
+
+        try {
+            int soma = 0;
+            for (int i = 0; i < 9; i++) {
+                soma += (cpf.charAt(i) - '0') * (10 - i);
+            }
+
+            int digito1 = 11 - (soma % 11);
+            if (digito1 >= 10) digito1 = 0;
+            if (digito1 != (cpf.charAt(9) - '0')) return false;
+
+            soma = 0;
+            for (int i = 0; i < 10; i++) {
+                soma += (cpf.charAt(i) - '0') * (11 - i);
+            }
+
+            int digito2 = 11 - (soma % 11);
+            if (digito2 >= 10) digito2 = 0;
+            return digito2 == (cpf.charAt(10) - '0');
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
-        String nome = nomeField.getText();
-        String email = emailField.getText();
-        String senha = senhaField.getText();
-        String cpf = cpfField.getText();
-        int tipo = 0; // Tipo comprador
-        
+        String nome = nomeField.getText().trim();
+        String email = emailField.getText().trim();
+        String senha = new String(senhaField.getPassword()).trim();
+        String cpf = cpfField.getText().trim();
+
         UsuarioController userControl = new UsuarioController();
-        //userControl.addUser(nome, email, senha, cpf, tipo);
+
+        if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || cpf.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Preencha todos os campos.");
+            return;
+        }
+
+        if (senha.length() < 8) {
+            javax.swing.JOptionPane.showMessageDialog(this, "A senha deve ter pelo menos 8 caracteres.");
+            return;
+        }
+
+        if (!email.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Email inválido.");
+            return;
+        }
+
+        if (!cpfValido(cpf)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "CPF inválido.");
+            return;
+        }
+
+        if (userControl.emailExiste(email)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Email já cadastrado.");
+            return;
+        }
+
+        if (userControl.cpfExiste(cpf)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "CPF já cadastrado.");
+            return;
+        }
+
+        UUID id = UUID.randomUUID();
+        Comprador comprador = new Comprador(id, nome, email, senha, cpf);
+
+        if (userControl.addUser(comprador)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Comprador cadastrado com sucesso!");
+            this.dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Erro ao cadastrar comprador.");
+        }
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
     private void cpfFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfFieldActionPerformed

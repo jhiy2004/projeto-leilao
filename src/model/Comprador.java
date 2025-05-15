@@ -4,10 +4,18 @@
  */
 package model;
 
+import java.util.UUID;
+
 /**
  *
  * @author jhiy2
  */
 public class Comprador extends Usuario {
-    
+    public Comprador(UUID id, String nome, String email, String senha, String cpf){
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.cpf = cpf;
+    }
 }

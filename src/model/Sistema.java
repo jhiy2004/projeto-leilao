@@ -11,6 +11,7 @@ package model;
 public class Sistema {
     private static Sistema instance = null;
     private static boolean logado = false;
+    private static Usuario userLogged = null;
     
     private Sistema(){
     }
@@ -23,8 +24,13 @@ public class Sistema {
         return instance;
     }
     
-    public static void logar(){
+    public void logar(Usuario user){
         logado = true;
+        userLogged = user;
+    }
+    
+    public Usuario getUsuarioLogado(){
+        return userLogged;
     }
     
     public boolean isLogged(){
