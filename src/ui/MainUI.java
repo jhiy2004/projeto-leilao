@@ -4,6 +4,9 @@
  */
 package ui;
 
+import javax.swing.JOptionPane;
+import model.Sistema;
+
 /**
  *
  * @author vitor
@@ -26,6 +29,7 @@ public class MainUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        welcomeLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         cadastroMenu = new javax.swing.JMenu();
         cadastroVendedor = new javax.swing.JMenuItem();
@@ -36,6 +40,8 @@ public class MainUI extends javax.swing.JFrame {
         anunciosAtivos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        welcomeLabel.setText("Não Logado");
 
         cadastroMenu.setText("Cadastro");
         cadastroMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -87,11 +93,17 @@ public class MainUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,11 +127,25 @@ public class MainUI extends javax.swing.JFrame {
         cadUI.setVisible(true);
     }//GEN-LAST:event_cadastroCompradorActionPerformed
 
+    public void atualizarUsuarioLogado() {
+        if (Sistema.getInstance().isLogged()) {
+            String nome = Sistema.getInstance().getUsuarioLogado().getNome();
+            welcomeLabel.setText("Bem-vindo, " + nome + "!");
+        } else {
+            welcomeLabel.setText("Não logado");
+        }
+    }
+    
     private void usuarioLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioLoginActionPerformed
         // TODO add your handling code here:
+        if (Sistema.getInstance().isLogged()) {
+            JOptionPane.showMessageDialog(this, "Usuário já está logado.");
+            return;
+        }
         LoginUsuarioUI loginUI = new LoginUsuarioUI(this, true);
         loginUI.setLocationRelativeTo(this);
         loginUI.setVisible(true);
+        atualizarUsuarioLogado();
     }//GEN-LAST:event_usuarioLoginActionPerformed
 
     /**
@@ -166,5 +192,6 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu loginMenu;
     private javax.swing.JMenuItem usuarioLogin;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

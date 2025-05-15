@@ -36,12 +36,27 @@ public class UsuarioController {
         return false;
     }
 
-    public boolean addUser(Usuario novoUsuario) {
+    public boolean emailExiste(String email) {
         for (Usuario u : usuarios) {
-            if (u.getEmail().equalsIgnoreCase(novoUsuario.getEmail())) {
-                // Email duplicado
-                return false;
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                return true;
             }
+        }
+        return false;
+    }
+
+    public boolean cpfExiste(String cpf) {
+        for (Usuario u : usuarios) {
+            if (u.getCpf().equals(cpf)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addUser(Usuario novoUsuario) {
+        if (emailExiste(novoUsuario.getEmail()) || cpfExiste(novoUsuario.getCpf())) {
+            return false;
         }
 
         usuarios.add(novoUsuario);
@@ -54,6 +69,15 @@ public class UsuarioController {
         }
 
         return true;
+    }
+    
+    public Usuario getUserByEmail(String email) {
+        for (Usuario u : usuarios) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     public List<Usuario> getUsuarios() {

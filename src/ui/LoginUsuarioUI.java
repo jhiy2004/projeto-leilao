@@ -5,7 +5,9 @@
 package ui;
 
 import controller.UsuarioController;
+import javax.swing.JOptionPane;
 import model.Sistema;
+import model.Usuario;
 
 /**
  *
@@ -19,6 +21,7 @@ public class LoginUsuarioUI extends javax.swing.JDialog {
     public LoginUsuarioUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Login de Usuário");
     }
 
     /**
@@ -107,7 +110,12 @@ public class LoginUsuarioUI extends javax.swing.JDialog {
         UsuarioController userControl = new UsuarioController();
         boolean match = userControl.matchUser(email, senha);
         if(match){
-            Sistema.getInstance().logar();
+            Usuario user = userControl.getUserByEmail(email);
+            Sistema.getInstance().logar(user);
+            JOptionPane.showMessageDialog(this, "Login realizado com sucesso!");
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Email ou senha inválidos!");
         }
     }//GEN-LAST:event_confirmarButtonActionPerformed
 

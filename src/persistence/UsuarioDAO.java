@@ -32,7 +32,7 @@ public class UsuarioDAO implements DAO<Usuario> {
             }
 
             // id,nome,email,senha,tipo
-            writer.write(String.format("%s,%s,%s,%s,%s\n",
+            writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
                 usuario.getId().toString(),
                 usuario.getNome().replace(",", ";"),
                 usuario.getEmail().replace(",", ";"),
