@@ -83,6 +83,11 @@ public class MainUI extends javax.swing.JFrame {
         anunciosMenu.setText("Anúncios");
 
         anunciosAtivos.setText("Anúncios Ativos");
+        anunciosAtivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anunciosAtivosActionPerformed(evt);
+            }
+        });
         anunciosMenu.add(anunciosAtivos);
 
         jMenuBar1.add(anunciosMenu);
@@ -147,6 +152,13 @@ public class MainUI extends javax.swing.JFrame {
         loginUI.setVisible(true);
         atualizarUsuarioLogado();
     }//GEN-LAST:event_usuarioLoginActionPerformed
+
+    private void anunciosAtivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anunciosAtivosActionPerformed
+        // TODO add your handling code here:
+        ListarAnuncios listar = new ListarAnuncios(this, true);
+        listar.setLocationRelativeTo(this);
+        listar.setVisible(true);
+    }//GEN-LAST:event_anunciosAtivosActionPerformed
 
     /**
      * @param args the command line arguments

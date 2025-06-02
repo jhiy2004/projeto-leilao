@@ -54,6 +54,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="An&#xfa;ncios Ativos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anunciosAtivosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
