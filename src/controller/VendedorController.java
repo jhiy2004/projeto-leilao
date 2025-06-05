@@ -4,10 +4,23 @@
  */
 package controller;
 
+import java.util.Map;
+import model.Vendedor;
+
 /**
  *
  * @author jhiy2
  */
 public class VendedorController {
+    UsuarioController uc;
+    Map<String, Vendedor> vendedores;
     
+    public VendedorController(UsuarioController uc){
+        this.uc = uc;
+        this.vendedores = uc.getVendedores();
+    }
+    
+    public Map<String, Vendedor> getVendedores(){
+        return this.vendedores;
+    }
 }

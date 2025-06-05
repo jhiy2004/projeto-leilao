@@ -2,9 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Usuario;
+import model.Vendedor;
+import model.Comprador;
 import persistence.UsuarioDAO;
 
 /**
@@ -12,23 +15,21 @@ import persistence.UsuarioDAO;
  * @author jhiy2
  */
 public class UsuarioController {
-    private List<Usuario> usuarios;
+    private Map<String, Usuario> usuarios;
     private UsuarioDAO usuarioDAO;
 
     public UsuarioController() {
         usuarioDAO = new UsuarioDAO();
-        usuarios = new ArrayList<>();
 
         try {
-            Map<String, Usuario> mapaUsuarios = usuarioDAO.carregar();
-            usuarios.addAll(mapaUsuarios.values());
+            usuarios = usuarioDAO.carregar();
         } catch (IOException e) {
             System.err.println("Erro ao carregar usuários: " + e.getMessage());
         }
     }
 
     public boolean matchUser(String email, String senha) {
-        for (Usuario u : usuarios) {
+        for (Usuario u : usuarios.values()) {
             if (u.getEmail().equals(email) && u.getSenha().equals(senha)) {
                 return true;
             }
@@ -37,7 +38,7 @@ public class UsuarioController {
     }
 
     public boolean emailExiste(String email) {
-        for (Usuario u : usuarios) {
+        for (Usuario u : usuarios.values()) {
             if (u.getEmail().equalsIgnoreCase(email)) {
                 return true;
             }
@@ -46,7 +47,7 @@ public class UsuarioController {
     }
 
     public boolean cpfExiste(String cpf) {
-        for (Usuario u : usuarios) {
+        for (Usuario u : usuarios.values()) {
             if (u.getCpf().equals(cpf)) {
                 return true;
             }
@@ -59,7 +60,7 @@ public class UsuarioController {
             return false;
         }
 
-        usuarios.add(novoUsuario);
+        usuarios.put(novoUsuario.getId().toString(), novoUsuario);
 
         try {
             usuarioDAO.salvar(novoUsuario);
@@ -72,7 +73,7 @@ public class UsuarioController {
     }
     
     public Usuario getUserByEmail(String email) {
-        for (Usuario u : usuarios) {
+        for (Usuario u : usuarios.values()) {
             if (u.getEmail().equalsIgnoreCase(email)) {
                 return u;
             }
@@ -81,6 +82,30 @@ public class UsuarioController {
     }
 
     public List<Usuario> getUsuarios() {
-        return usuarios;
+        return new ArrayList<>(this.usuarios.values());
+    }
+    
+    public Map<String, Comprador> getCompradores() {
+        Map<String, Comprador> novo = new HashMap<>();
+        
+        for(Usuario u : usuarios.values()){
+            if(u instanceof Comprador){
+                novo.put(u.getId().toString(), (Comprador)u);
+            }
+        }
+        
+        return novo;
+    }
+    
+    public Map<String, Vendedor> getVendedores() {
+        Map<String, Vendedor> novo = new HashMap<>();
+        
+        for(Usuario u : usuarios.values()){
+            if(u instanceof Vendedor){
+                novo.put(u.getId().toString(), (Vendedor)u);
+            }
+        }
+        
+        return novo;    
     }
 }
