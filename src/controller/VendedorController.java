@@ -4,6 +4,7 @@
  */
 package controller;
 
+import catalogo.Catalogo;
 import java.util.Map;
 import model.Vendedor;
 
@@ -12,15 +13,9 @@ import model.Vendedor;
  * @author jhiy2
  */
 public class VendedorController {
-    UsuarioController uc;
-    Map<String, Vendedor> vendedores;
-    
-    public VendedorController(UsuarioController uc){
-        this.uc = uc;
-        this.vendedores = uc.getVendedores();
-    }
-    
-    public Map<String, Vendedor> getVendedores(){
-        return this.vendedores;
+    public static Map<String, Vendedor> getVendedores() {
+        Catalogo catalogo = Catalogo.getInstance();
+        
+        return catalogo.getVendedores();
     }
 }
