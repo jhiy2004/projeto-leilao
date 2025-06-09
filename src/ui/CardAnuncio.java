@@ -4,17 +4,47 @@
  */
 package ui;
 
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
+
 /**
  *
  * @author jose.yamaoki_unesp
  */
 public class CardAnuncio extends javax.swing.JPanel {
-
+    private boolean selecionado = false;
+    private String vendedor;
     /**
      * Creates new form CardLeilao
+     * @param nome
+     * @param descricao
+     * @param preco
      */
-    public CardAnuncio() {
+    public CardAnuncio(String nome, String descricao, double preco, String vendedor) {
         initComponents();
+        
+        descField.setText(descricao);
+        nomeField.setText(nome);
+        precoField.setText(Double.toString(preco));
+        this.vendedor = vendedor;
+        setBackground(Color.LIGHT_GRAY); // cor padrão
+        setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                selecionado = true;
+                atualizarEstilo();
+                DetalheAnuncio detalheAnuncio;
+                detalheAnuncio = new DetalheAnuncio(null, true, nomeField.getText(), precoField.getText(), descField.getText(), CardAnuncio.this.vendedor);
+                detalheAnuncio.setLocationRelativeTo(CardAnuncio.this);
+                detalheAnuncio.setVisible(true);
+                selecionado = false;
+                atualizarEstilo();
+            }
+        });
     }
 
     /**
@@ -105,6 +135,20 @@ public class CardAnuncio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_precoFieldActionPerformed
 
+    private void atualizarEstilo() {
+        if (selecionado) {
+            setBackground(Color.CYAN);
+            setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+        } else {
+            setBackground(Color.LIGHT_GRAY);
+            setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
+        repaint();
+    }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea descField;

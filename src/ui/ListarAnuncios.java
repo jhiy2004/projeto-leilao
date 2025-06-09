@@ -4,6 +4,15 @@
  */
 package ui;
 
+import controller.AnuncioController;
+import controller.LanceController;
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import model.Anuncio;
+
 /**
  *
  * @author jose.yamaoki_unesp
@@ -50,7 +59,26 @@ public class ListarAnuncios extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        System.out.println("oi");
+        // Container para os cards
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        
+        AnuncioController anuncioController = new AnuncioController();
+        
+        List<Anuncio> anuncios = anuncioController.getTodosAnuncios();
+        System.out.println(anuncios.get(0).getLances());
+        for (int i = 0; i < anuncios.size(); i++) {
+            CardAnuncio card;
+            card = new CardAnuncio(anuncios.get(i).getNome(), anuncios.get(i).getDescricao(), anuncios.get(i).getValorInicial(), anuncios.get(i).getVendedor().getNome());
+            container.add(card);
+        }
+
+        // Adiciona o container ao JDialog
+        this.setLayout(new BorderLayout());
+        this.add(new JScrollPane(container), BorderLayout.CENTER);
+
+        this.revalidate();
+        this.repaint();
     }//GEN-LAST:event_formWindowOpened
 
     /**

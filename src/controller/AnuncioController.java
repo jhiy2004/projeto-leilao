@@ -28,13 +28,27 @@ public class AnuncioController {
     private final LanceController lanceController;
     private final AnuncioDAO anuncioDAO;
     
-    public AnuncioController(AnuncioDAO anuncioDAO, LanceDAO lanceDAO, Map<String, Vendedor> vendedores, Map<String, Comprador> compradores) {
-        this.anuncioDAO = anuncioDAO;
+    public AnuncioController() {
+        UsuarioController uc = new UsuarioController();
+        VendedorController vc = new VendedorController(uc);
+        CompradorController cc = new CompradorController(uc);
+        
+        Map<String, Vendedor> vendedores = vc.getVendedores();
+        Map<String, Comprador> compradores = cc.getCompradores();
+        this.anuncioDAO = new AnuncioDAO(vendedores);
+        
         try {
             this.anuncios = anuncioDAO.carregar();
         } catch (IOException ex) {
             Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao carregar anúncios", ex);
             this.anuncios = new HashMap<>();
+        }
+        
+        LanceDAO lanceDAO = new LanceDAO(compradores, anuncios);
+        try {
+            lanceDAO.carregar();
+        } catch (IOException ex) {
+            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao carregar lances", ex);
         }
         
         this.lanceController = new LanceController(lanceDAO, compradores, anuncios);
