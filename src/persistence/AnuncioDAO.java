@@ -35,8 +35,7 @@ public class AnuncioDAO implements DAO<Anuncio> {
                 anuncio.getId(),
                 anuncio.getNome().replace(",", ";"),
                 anuncio.getDescricao().replace(",", ";"),
-                "vendedorId",
-                //anuncio.getVendedor().getId(),
+                anuncio.getVendedor().getId(),
                 anuncio.getDataCriacao().toString(),
                 anuncio.getDataEncerramento().toString(),
                 anuncio.getValorInicial()

@@ -40,8 +40,7 @@ public class LanceDAO implements DAO<Lance>{
             //id,compradorId,valor,data,anuncioId
             writer.write(String.format("%s,%s,%f,%s\n",
                 lance.getId(),
-                "compradorId",
-                //lance.getComprador().getId(),
+                lance.getComprador().getId(),
                 lance.getValor(),
                 lance.getData().toString(),
                 lance.getAnuncio().getId()

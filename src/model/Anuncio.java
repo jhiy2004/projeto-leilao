@@ -107,4 +107,18 @@ public class Anuncio {
             this.estado = Estado.ENCERRADO;
         }
     }
+    
+    @Override
+    public String toString() {
+        return "Anuncio{" +
+            "id='" + id + '\'' +
+            ", nome='" + nome + '\'' +
+            ", descricao='" + descricao + '\'' +
+            ", vendedor=" + vendedor.getNome() + // ou outro identificador
+            ", dataEncerramento=" + dataEncerramento +
+            ", valorInicial=" + valorInicial +
+            ", lanceAtual=" + (getLanceAtual() != null ? getLanceAtual().getValor() : "nenhum") +
+            '}';
+    }
+
 }
