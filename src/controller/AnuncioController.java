@@ -4,83 +4,53 @@
  */
 package controller;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import model.Anuncio;
 import model.Comprador;
 import model.Lance;
 import model.Vendedor;
-import persistence.AnuncioDAO;
-import persistence.LanceDAO;
+import catalogo.Catalogo;
+import java.util.Map;
 
 /**
  *
  * @author jhiy2
  */
 public class AnuncioController {
-    private Map<String, Anuncio> anuncios;
-    private final LanceController lanceController;
-    private final AnuncioDAO anuncioDAO;
-    
-    public AnuncioController() {
-        UsuarioController uc = new UsuarioController();
-        VendedorController vc = new VendedorController(uc);
-        CompradorController cc = new CompradorController(uc);
-        
-        Map<String, Vendedor> vendedores = vc.getVendedores();
-        Map<String, Comprador> compradores = cc.getCompradores();
-        this.anuncioDAO = new AnuncioDAO(vendedores);
-        
-        try {
-            this.anuncios = anuncioDAO.carregar();
-        } catch (IOException ex) {
-            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao carregar anúncios", ex);
-            this.anuncios = new HashMap<>();
-        }
-        
-        LanceDAO lanceDAO = new LanceDAO(compradores, anuncios);
-        try {
-            lanceDAO.carregar();
-        } catch (IOException ex) {
-            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao carregar lances", ex);
-        }
-        
-        this.lanceController = new LanceController(lanceDAO, compradores, anuncios);
+    public static boolean addLanceAnuncio(Anuncio anuncio, Comprador comprador, double valor) {
+        return LanceController.addLanceAnuncio(anuncio, comprador, valor);
     }
     
-    public boolean addLanceAnuncio(Anuncio anuncio, Comprador comprador, double valor) {
-        return lanceController.addLanceAnuncio(anuncio, comprador, valor);
+    public static List<Lance> listarLancesAnuncio(Anuncio anuncio) {
+        return LanceController.listarLancesAnuncio(anuncio);
     }
     
-    public List<Lance> listarLancesAnuncio(Anuncio anuncio) {
-        return lanceController.listarLancesAnuncio(anuncio);
-    }
-    
-    public Anuncio criarAnuncio(String nome, String descricao, Vendedor vendedor, LocalDateTime dataEncerramento, double valorInicial) {
+    public static Anuncio criarAnuncio(String nome, String descricao, Vendedor vendedor, LocalDateTime dataEncerramento, double valorInicial) {
         Anuncio anuncio = new Anuncio(null, nome, descricao, vendedor, null, dataEncerramento, valorInicial);
-        anuncios.put(anuncio.getId(), anuncio);
-        try {
-            anuncioDAO.salvar(anuncio);
-        } catch (IOException ex) {
-            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao salvar anúncio", ex);
-        }
+        
+        Catalogo catalogo = Catalogo.getInstance();
+        if(catalogo.inserirAnuncio(anuncio) == false)
+            return null;
+        
         return anuncio;
     }
     
-    public List<Anuncio> getTodosAnuncios() {
-        for (Anuncio a : this.anuncios.values()) {
+    public static List<Anuncio> getTodosAnuncios() {
+        Catalogo catalogo = Catalogo.getInstance();
+        Map<String, Anuncio> anuncios = catalogo.getAnuncios();
+        
+        for (Anuncio a : anuncios.values()) {
             a.verificarEncerramento();
         }
-        return new ArrayList<>(this.anuncios.values());
+        return new ArrayList<>(anuncios.values());
     }
 
     public Anuncio getAnuncioPorId(String id) {
+        Catalogo catalogo = Catalogo.getInstance();
+        Map<String, Anuncio> anuncios = catalogo.getAnuncios();
+        
         return anuncios.get(id);
     }
 }
