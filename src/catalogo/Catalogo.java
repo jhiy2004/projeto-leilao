@@ -7,6 +7,7 @@ package catalogo;
 import controller.AnuncioController;
 import controller.LanceController;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +40,12 @@ public class Catalogo {
 
     private Catalogo(){
         usuarioDAO = new UsuarioDAO();
+        
+        usuarios = new HashMap<>();
+        vendedores = new HashMap<>();
+        compradores = new HashMap<>();
+        anuncios = new HashMap<>();
+        lances = new HashMap<>();
         
         try {
             usuarios = usuarioDAO.carregar();
