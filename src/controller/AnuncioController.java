@@ -53,4 +53,18 @@ public class AnuncioController {
         
         return anuncios.get(id);
     }
+    
+    public List<Anuncio> getAnunciosPorNome(String nome) {
+        Catalogo catalogo = Catalogo.getInstance();
+        Map<String, Anuncio> allAnuncios = catalogo.getAnuncios();
+        
+        ArrayList<Anuncio> anuncios = new ArrayList<>();
+        for(Anuncio a : allAnuncios.values()){
+            if(a.getNome().toLowerCase().equals(nome.toLowerCase())){
+                anuncios.add(a);
+            }
+        }
+        
+        return anuncios;
+    }
 }
