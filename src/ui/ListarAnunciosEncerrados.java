@@ -17,12 +17,12 @@ import model.Anuncio;
  *
  * @author jose.yamaoki_unesp
  */
-public class ListarAnuncios extends javax.swing.JDialog {
+public class ListarAnunciosEncerrados extends javax.swing.JDialog {
 
     /**
      * Creates new form ListarAnuncios
      */
-    public ListarAnuncios(java.awt.Frame parent, boolean modal) {
+    public ListarAnunciosEncerrados(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -67,9 +67,11 @@ public class ListarAnuncios extends javax.swing.JDialog {
         
         List<Anuncio> anuncios = anuncioController.getTodosAnuncios();
         for (int i = 0; i < anuncios.size(); i++) {
-            CardAnuncio card;
-            card = new CardAnuncio(anuncios.get(i).getNome(), anuncios.get(i).getDescricao(), anuncios.get(i).getValorInicial(), anuncios.get(i).getVendedor().getNome());
-            container.add(card);
+            if(anuncios.get(i).isEncerrado()){
+                CardAnuncio card;
+                card = new CardAnuncio(anuncios.get(i).getNome(), anuncios.get(i).getDescricao(), anuncios.get(i).getValorInicial(), anuncios.get(i).getVendedor().getNome());
+                container.add(card);
+            }
         }
 
         // Adiciona o container ao JDialog
@@ -97,20 +99,21 @@ public class ListarAnuncios extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListarAnuncios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarAnunciosEncerrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListarAnuncios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarAnunciosEncerrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListarAnuncios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarAnunciosEncerrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListarAnuncios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarAnunciosEncerrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ListarAnuncios dialog = new ListarAnuncios(new javax.swing.JFrame(), true);
+                ListarAnunciosEncerrados dialog = new ListarAnunciosEncerrados(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
