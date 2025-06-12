@@ -37,7 +37,9 @@ public class MainUI extends javax.swing.JFrame {
         loginMenu = new javax.swing.JMenu();
         usuarioLogin = new javax.swing.JMenuItem();
         anunciosMenu = new javax.swing.JMenu();
+        anuncios = new javax.swing.JMenuItem();
         anunciosAtivos = new javax.swing.JMenuItem();
+        anunciosEncerrados = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +84,14 @@ public class MainUI extends javax.swing.JFrame {
 
         anunciosMenu.setText("Anúncios");
 
+        anuncios.setText("Todos Anúncios");
+        anuncios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anunciosActionPerformed(evt);
+            }
+        });
+        anunciosMenu.add(anuncios);
+
         anunciosAtivos.setText("Anúncios Ativos");
         anunciosAtivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +99,14 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
         anunciosMenu.add(anunciosAtivos);
+
+        anunciosEncerrados.setText("Anúncios Encerrados");
+        anunciosEncerrados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anunciosEncerradosActionPerformed(evt);
+            }
+        });
+        anunciosMenu.add(anunciosEncerrados);
 
         jMenuBar1.add(anunciosMenu);
 
@@ -155,10 +173,24 @@ public class MainUI extends javax.swing.JFrame {
 
     private void anunciosAtivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anunciosAtivosActionPerformed
         // TODO add your handling code here:
-        ListarAnuncios listar = new ListarAnuncios(this, true);
+        ListarAnunciosAtivos listar = new ListarAnunciosAtivos(this, true);
         listar.setLocationRelativeTo(this);
         listar.setVisible(true);
     }//GEN-LAST:event_anunciosAtivosActionPerformed
+
+    private void anunciosEncerradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anunciosEncerradosActionPerformed
+        // TODO add your handling code here:
+        ListarAnunciosEncerrados listar = new ListarAnunciosEncerrados(this, true);
+        listar.setLocationRelativeTo(this);
+        listar.setVisible(true);
+    }//GEN-LAST:event_anunciosEncerradosActionPerformed
+
+    private void anunciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anunciosActionPerformed
+        // TODO add your handling code here:
+        ListarAnuncios listar = new ListarAnuncios(this, true);
+        listar.setLocationRelativeTo(this);
+        listar.setVisible(true);
+    }//GEN-LAST:event_anunciosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,7 +228,9 @@ public class MainUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem anuncios;
     private javax.swing.JMenuItem anunciosAtivos;
+    private javax.swing.JMenuItem anunciosEncerrados;
     private javax.swing.JMenu anunciosMenu;
     private javax.swing.JMenuItem cadastroComprador;
     private javax.swing.JMenu cadastroMenu;

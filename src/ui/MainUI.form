@@ -50,12 +50,28 @@
             <Property name="text" type="java.lang.String" value="An&#xfa;ncios"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="anuncios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Todos An&#xfa;ncios"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anunciosActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="anunciosAtivos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="An&#xfa;ncios Ativos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anunciosAtivosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="anunciosEncerrados">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="An&#xfa;ncios Encerrados"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anunciosEncerradosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
