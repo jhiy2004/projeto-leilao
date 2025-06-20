@@ -65,6 +65,7 @@ public class ListarAnuncios extends javax.swing.JDialog {
         
         AnuncioController anuncioController = new AnuncioController();
         
+        AnuncioController.processarEncerramentos();
         List<Anuncio> anuncios = anuncioController.getTodosAnuncios();
         for (int i = 0; i < anuncios.size(); i++) {
             CardAnuncio card;

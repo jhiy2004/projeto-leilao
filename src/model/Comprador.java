@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -11,11 +13,25 @@ import java.util.UUID;
  * @author jhiy2
  */
 public class Comprador extends Usuario {
+    private final List<Compra> compras;
+    
     public Comprador(String id, String nome, String email, String senha, String cpf){
         this.id = (id == null) ? UUID.randomUUID().toString() : id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.cpf = cpf;
+        
+        this.compras = new ArrayList<>();
+    }
+    
+    public List<Compra> getCompras(){
+        return this.compras;
+    }
+    
+    public void adicionarCompra(Compra compra){
+        if (!compras.contains(compra)) {
+            this.compras.add(compra);
+        }
     }
 }

@@ -13,6 +13,7 @@ import model.Lance;
 import model.Vendedor;
 import catalogo.Catalogo;
 import java.util.Map;
+import model.Compra;
 
 /**
  *
@@ -40,11 +41,39 @@ public class AnuncioController {
     public static List<Anuncio> getTodosAnuncios() {
         Catalogo catalogo = Catalogo.getInstance();
         Map<String, Anuncio> anuncios = catalogo.getAnuncios();
-        
-        for (Anuncio a : anuncios.values()) {
-            a.verificarEncerramento();
-        }
+
         return new ArrayList<>(anuncios.values());
+    }
+    
+    public static void processarEncerramentos() {
+        Catalogo catalogo = Catalogo.getInstance();
+        Map<String, Anuncio> anuncios = catalogo.getAnuncios();
+
+        for (Anuncio anuncio : anuncios.values()) {
+            anuncio.verificarEncerramento();
+
+            if (anuncio.isEncerrado() && !catalogo.anuncioInCompras(anuncio)) {
+                Lance lanceVencedor = anuncio.getLanceAtual();
+                if (lanceVencedor != null) {
+                    Comprador comprador = lanceVencedor.getComprador();
+                    Vendedor vendedor = anuncio.getVendedor();
+
+                    Compra compra = new Compra(
+                        null,
+                        LocalDateTime.now(),
+                        lanceVencedor.getValor(),
+                        vendedor,
+                        comprador,
+                        anuncio
+                    );
+
+                    catalogo.inserirCompra(compra);
+
+                    comprador.adicionarCompra(compra);
+                    vendedor.adicionarVenda(compra);          
+                }
+            }
+        }
     }
 
     public Anuncio getAnuncioPorId(String id) {
