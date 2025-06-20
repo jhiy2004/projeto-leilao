@@ -78,7 +78,7 @@ public class Catalogo {
         System.out.println("QTD COMPRADORES: " + compradores.size());
         System.out.println("QTD VENDEDORES: " + vendedores.size());
         System.out.println("QTD LANCES: "+lances.size());
-        System.out.println("QTD ANUNCIOS: "+anuncios.size());
+        System.out.println("QTD ANUNCIOS: "+anuncios.size());   
     }
     
     public static Catalogo getInstance(){

@@ -69,7 +69,7 @@ public class ListarAnunciosAtivos extends javax.swing.JDialog {
         for (int i = 0; i < anuncios.size(); i++) {
             if(!anuncios.get(i).isEncerrado()){
                 CardAnuncio card;
-                card = new CardAnuncio(anuncios.get(i).getNome(), anuncios.get(i).getDescricao(), anuncios.get(i).getValorInicial(), anuncios.get(i).getVendedor().getNome());
+                card = new CardAnuncio(anuncios.get(i).getNome(), anuncios.get(i).getDescricao(), anuncios.get(i).getValorAtual(), anuncios.get(i).getVendedor().getNome());
                 container.add(card);
             }
         }

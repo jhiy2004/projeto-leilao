@@ -80,6 +80,14 @@ public class Anuncio {
         return this.valorInicial;
     }
     
+    public double getValorAtual(){
+        try{
+            return this.lances.getLast().getValor();
+        }catch(NoSuchElementException e){
+            return this.valorInicial;
+        }
+    }
+    
     public Lance getLanceAtual(){
         try{
             return this.lances.getLast();
