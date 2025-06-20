@@ -25,6 +25,7 @@ public class Vendedor extends Usuario {
         this.cpf = cpf;
         
         this.vendas = new ArrayList<>();
+        this.notificacoes = new ArrayList<>();
     }
     
     public void criarAnuncio(String nomeAnuncio, String descricaoAnuncio, LocalDateTime dataInicioAnuncio, LocalDateTime dataFimAnuncio, double valorInicial){

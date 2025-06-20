@@ -14,6 +14,7 @@ import model.Vendedor;
 import catalogo.Catalogo;
 import java.util.Map;
 import model.Compra;
+import model.Notificacao;
 
 /**
  *
@@ -70,7 +71,25 @@ public class AnuncioController {
                     catalogo.inserirCompra(compra);
 
                     comprador.adicionarCompra(compra);
-                    vendedor.adicionarVenda(compra);          
+                    vendedor.adicionarVenda(compra);
+                    
+                    Notificacao notificacaoVendedor = new Notificacao(
+                            null,
+                            String.format("Seu anúncio '%s' teve um lance vencedor", anuncio.getNome()),
+                            vendedor
+                    );
+                    
+                    Notificacao notificacaoComprador = new Notificacao(
+                            null,
+                            String.format("Seu lance foi vencedor no anúncio '%s'", anuncio.getNome()),
+                            comprador
+                    );
+                    
+                    catalogo.inserirNotificacao(notificacaoVendedor);
+                    vendedor.adicionarNotificacao(notificacaoVendedor);
+                    
+                    catalogo.inserirNotificacao(notificacaoComprador);
+                    comprador.adicionarNotificacao(notificacaoComprador);
                 }
             }
         }

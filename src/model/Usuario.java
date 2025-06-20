@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author jhiy2
@@ -14,6 +16,7 @@ public abstract class Usuario {
     protected String senha;
     protected String cpf;
     protected String id;
+    protected List<Notificacao> notificacoes;
 
     public String getNome() {
         return nome;
@@ -49,5 +52,16 @@ public abstract class Usuario {
     
     public String getId() {
         return id;
+    }
+    
+    
+    public List<Notificacao> getNotificacoes(){
+        return this.notificacoes;
+    }
+    
+    public void  adicionarNotificacao(Notificacao notificacao){
+        if(!notificacoes.contains(notificacao)){
+            this.notificacoes.add(notificacao);
+        }
     }
 }

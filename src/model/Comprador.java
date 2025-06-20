@@ -23,6 +23,7 @@ public class Comprador extends Usuario {
         this.cpf = cpf;
         
         this.compras = new ArrayList<>();
+        this.notificacoes = new ArrayList<>();
     }
     
     public List<Compra> getCompras(){
