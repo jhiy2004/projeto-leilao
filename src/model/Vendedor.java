@@ -13,8 +13,8 @@ import java.util.UUID;
  * @author jhiy2
  */
 public class Vendedor extends Usuario {
-    public Vendedor(UUID id, String nome, String email, String senha, String cpf){
-        this.id = id;
+    public Vendedor(String id, String nome, String email, String senha, String cpf){
+        this.id = (id == null) ? UUID.randomUUID().toString() : id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;

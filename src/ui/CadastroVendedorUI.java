@@ -213,8 +213,7 @@ public class CadastroVendedorUI extends javax.swing.JDialog {
             return;
         }
 
-        UUID id = UUID.randomUUID();
-        Vendedor vendedor = new Vendedor(id, nome, email, senha, cpf);
+        Vendedor vendedor = new Vendedor(null, nome, email, senha, cpf);
 
         if (userControl.addUser(vendedor)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vendedor cadastrado com sucesso!");

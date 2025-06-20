@@ -11,8 +11,8 @@ import java.util.UUID;
  * @author jhiy2
  */
 public class Comprador extends Usuario {
-    public Comprador(UUID id, String nome, String email, String senha, String cpf){
-        this.id = id;
+    public Comprador(String id, String nome, String email, String senha, String cpf){
+        this.id = (id == null) ? UUID.randomUUID().toString() : id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;

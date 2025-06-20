@@ -33,7 +33,7 @@ public class UsuarioDAO implements DAO<Usuario> {
 
             // id,nome,email,senha,tipo
             writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
-                usuario.getId().toString(),
+                usuario.getId(),
                 usuario.getNome().replace(",", ";"),
                 usuario.getEmail().replace(",", ";"),
                 usuario.getSenha().replace(",", ";"),
@@ -51,7 +51,7 @@ public class UsuarioDAO implements DAO<Usuario> {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] campos = linha.split(",", -1);
-                UUID id = UUID.fromString(campos[0]);
+                String id = campos[0];
                 String nome = campos[1].replace(";", ",");
                 String email = campos[2].replace(";", ",");
                 String senha = campos[3].replace(";", ",");
@@ -66,7 +66,7 @@ public class UsuarioDAO implements DAO<Usuario> {
                 }
 
                 if (usuario != null) {
-                    usuarios.put(id.toString(), usuario);
+                    usuarios.put(id, usuario);
                 }
             }
         }

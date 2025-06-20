@@ -55,9 +55,9 @@ public class Catalogo {
         
         for(Usuario u : usuarios.values()){
             if(u instanceof Vendedor){
-                vendedores.put(u.getId().toString(), (Vendedor)u);
+                vendedores.put(u.getId(), (Vendedor)u);
             }else if(u instanceof Comprador){
-                compradores.put(u.getId().toString(), (Comprador)u);
+                compradores.put(u.getId(), (Comprador)u);
             }
         }
         
@@ -74,6 +74,11 @@ public class Catalogo {
         } catch (IOException e) {
             System.err.println("Erro ao carregar lances: " + e.getMessage());
         }
+        
+        System.out.println("QTD COMPRADORES: " + compradores.size());
+        System.out.println("QTD VENDEDORES: " + vendedores.size());
+        System.out.println("QTD LANCES: "+lances.size());
+        System.out.println("QTD ANUNCIOS: "+anuncios.size());
     }
     
     public static Catalogo getInstance(){
@@ -100,11 +105,11 @@ public class Catalogo {
     }
     
     public boolean inserirUsuario(Usuario u){
-        usuarios.put(u.getId().toString(), u);
+        usuarios.put(u.getId(), u);
         if(u instanceof Vendedor){
-            vendedores.put(u.getId().toString(), (Vendedor)u);
+            vendedores.put(u.getId(), (Vendedor)u);
         }else if(u instanceof Comprador){
-            compradores.put(u.getId().toString(), (Comprador)u);
+            compradores.put(u.getId(), (Comprador)u);
         }
         
         try {
