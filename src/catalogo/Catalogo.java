@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Anuncio;
+import model.Avaliacao;
 import model.Compra;
 import model.Comprador;
 import model.Lance;
@@ -19,6 +20,7 @@ import model.Notificacao;
 import model.Usuario;
 import model.Vendedor;
 import persistence.AnuncioDAO;
+import persistence.AvaliacaoDAO;
 import persistence.CompraDAO;
 import persistence.LanceDAO;
 import persistence.NotificacaoDAO;
@@ -38,12 +40,14 @@ public class Catalogo {
     
     private Map<String, Compra> compras;
     private Map<String, Notificacao> notificacoes;
+    private Map<String, Avaliacao> avaliacoes;
     
     private AnuncioDAO anuncioDAO;
     private LanceDAO lanceDAO;
     private UsuarioDAO usuarioDAO;
     private CompraDAO compraDAO;
     private NotificacaoDAO notificacaoDAO;
+    private AvaliacaoDAO avaliacaoDAO;
     
     private static Catalogo instance = null;
 
@@ -57,6 +61,7 @@ public class Catalogo {
         lances = new HashMap<>();
         compras = new HashMap<>();
         notificacoes = new HashMap<>();
+        avaliacoes = new HashMap<>();
         
         try {
             usuarios = usuarioDAO.carregar();
@@ -100,12 +105,21 @@ public class Catalogo {
             System.err.println("Erro ao carregar notificações: " + e.getMessage());
         }
         
+        avaliacaoDAO = new AvaliacaoDAO(compras);
+        try{
+            avaliacoes = avaliacaoDAO.carregar();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar avaliações: " + e.getMessage());
+        }
+        
+        
         System.out.println("QTD COMPRADORES: " + compradores.size());
         System.out.println("QTD VENDEDORES: " + vendedores.size());
         System.out.println("QTD LANCES: "+lances.size());
         System.out.println("QTD ANUNCIOS: "+anuncios.size());
         System.out.println("QTD COMPRAS: "+compras.size());
         System.out.println("QTD NOTIFICACOES: "+notificacoes.size());
+        System.out.println("QTD AVALIACOES: "+avaliacoes.size());
     }
     
     public static Catalogo getInstance(){
@@ -137,6 +151,10 @@ public class Catalogo {
     
     public Map<String, Notificacao> getNotificacoes(){
         return this.notificacoes;
+    }
+    
+    public Map<String, Avaliacao> getAvaliacoes(){
+        return this.avaliacoes;
     }
     
     public boolean inserirCompra(Compra compra) {
@@ -202,6 +220,17 @@ public class Catalogo {
             notificacaoDAO.salvar(n);
         } catch (IOException ex) {
             Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao salvar notificacao", ex);
+            return false;
+        }   
+        return true;
+    }
+    
+    public boolean inserirAvaliacao(Avaliacao a){
+        avaliacoes.put(a.getId(), a);
+        try {
+            avaliacaoDAO.salvar(a);
+        } catch (IOException ex) {
+            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao salvar avaliação", ex);
             return false;
         }   
         return true;

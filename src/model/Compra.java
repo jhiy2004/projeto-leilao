@@ -19,6 +19,7 @@ public class Compra {
     private final Vendedor vendedor;
     private final Comprador comprador;
     private final Anuncio anuncio;
+    private Avaliacao avaliacao;
     
     public Compra(String id, LocalDateTime data, double valor, boolean concluida, Vendedor vendedor, Comprador comprador, Anuncio anuncio){
         this.id = (id == null) ? UUID.randomUUID().toString() : id;
@@ -28,6 +29,7 @@ public class Compra {
         this.vendedor = vendedor;
         this.comprador = comprador;
         this.anuncio = anuncio;
+        this.avaliacao = null;
     }
     
     public Compra(String id, LocalDateTime data, double valor, Vendedor vendedor, Comprador comprador, Anuncio anuncio){
@@ -38,6 +40,7 @@ public class Compra {
         this.vendedor = vendedor;
         this.comprador = comprador;
         this.anuncio = anuncio;
+        this.avaliacao = null;
     }
     
     public String getId(){
@@ -66,6 +69,14 @@ public class Compra {
     
     public Anuncio getAnuncio(){
         return this.anuncio;
+    }
+    
+    public Avaliacao getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Avaliacao avaliacao) {
+        this.avaliacao = avaliacao;
     }
     
     public void concluir(){
