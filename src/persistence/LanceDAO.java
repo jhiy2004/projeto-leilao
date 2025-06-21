@@ -38,7 +38,7 @@ public class LanceDAO implements DAO<Lance>{
     public void salvar(Lance lance) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))){
             //id,compradorId,valor,data,anuncioId
-            writer.write(String.format("%s,%s,%f,%s\n",
+            writer.write(String.format("%s,%s,%f,%s,%s\n",
                 lance.getId(),
                 lance.getComprador().getId(),
                 lance.getValor(),
@@ -65,7 +65,7 @@ public class LanceDAO implements DAO<Lance>{
                 String anuncioId = campos[4];
 
                 Comprador comprador = this.compradores.get(compradorId);
-                Anuncio anuncio = this.anuncios.get(anuncioId);
+                Anuncio anuncio = this.anuncios.get(anuncioId);        
                 if (comprador != null && anuncio != null) {
                     Lance lance = new Lance(id, comprador, valor, data, anuncio);
                     lances.put(id, lance);

@@ -12,12 +12,16 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Anuncio;
+import model.Compra;
 import model.Comprador;
 import model.Lance;
+import model.Notificacao;
 import model.Usuario;
 import model.Vendedor;
 import persistence.AnuncioDAO;
+import persistence.CompraDAO;
 import persistence.LanceDAO;
+import persistence.NotificacaoDAO;
 import persistence.UsuarioDAO;
 
 /**
@@ -32,9 +36,14 @@ public class Catalogo {
     private Map<String, Anuncio> anuncios;
     private Map<String, Lance> lances;
     
+    private Map<String, Compra> compras;
+    private Map<String, Notificacao> notificacoes;
+    
     private AnuncioDAO anuncioDAO;
     private LanceDAO lanceDAO;
     private UsuarioDAO usuarioDAO;
+    private CompraDAO compraDAO;
+    private NotificacaoDAO notificacaoDAO;
     
     private static Catalogo instance = null;
 
@@ -46,6 +55,8 @@ public class Catalogo {
         compradores = new HashMap<>();
         anuncios = new HashMap<>();
         lances = new HashMap<>();
+        compras = new HashMap<>();
+        notificacoes = new HashMap<>();
         
         try {
             usuarios = usuarioDAO.carregar();
@@ -55,9 +66,9 @@ public class Catalogo {
         
         for(Usuario u : usuarios.values()){
             if(u instanceof Vendedor){
-                vendedores.put(u.getId().toString(), (Vendedor)u);
+                vendedores.put(u.getId(), (Vendedor)u);
             }else if(u instanceof Comprador){
-                compradores.put(u.getId().toString(), (Comprador)u);
+                compradores.put(u.getId(), (Comprador)u);
             }
         }
         
@@ -74,6 +85,27 @@ public class Catalogo {
         } catch (IOException e) {
             System.err.println("Erro ao carregar lances: " + e.getMessage());
         }
+        
+        compraDAO = new CompraDAO(compradores, vendedores, anuncios);
+        try{
+            compras = compraDAO.carregar();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar compras: " + e.getMessage());
+        }
+        
+        notificacaoDAO = new NotificacaoDAO(usuarios);
+        try{
+            notificacoes = notificacaoDAO.carregar();
+        } catch(IOException e){
+            System.err.println("Erro ao carregar notificações: " + e.getMessage());
+        }
+        
+        System.out.println("QTD COMPRADORES: " + compradores.size());
+        System.out.println("QTD VENDEDORES: " + vendedores.size());
+        System.out.println("QTD LANCES: "+lances.size());
+        System.out.println("QTD ANUNCIOS: "+anuncios.size());
+        System.out.println("QTD COMPRAS: "+compras.size());
+        System.out.println("QTD NOTIFICACOES: "+notificacoes.size());
     }
     
     public static Catalogo getInstance(){
@@ -99,12 +131,37 @@ public class Catalogo {
         return this.anuncios;
     }
     
+    public Map<String, Compra> getCompras(){
+        return this.compras;
+    }
+    
+    public Map<String, Notificacao> getNotificacoes(){
+        return this.notificacoes;
+    }
+    
+    public boolean inserirCompra(Compra compra) {
+        if (compras.containsKey(compra.getId())) {
+            return false;
+        }
+
+        compras.put(compra.getId(), compra);
+
+        try {
+            this.compraDAO.salvar(compra);
+        } catch (IOException ex) {
+            Logger.getLogger(LanceController.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+        return true;
+    }
+    
     public boolean inserirUsuario(Usuario u){
-        usuarios.put(u.getId().toString(), u);
+        usuarios.put(u.getId(), u);
         if(u instanceof Vendedor){
-            vendedores.put(u.getId().toString(), (Vendedor)u);
+            vendedores.put(u.getId(), (Vendedor)u);
         }else if(u instanceof Comprador){
-            compradores.put(u.getId().toString(), (Comprador)u);
+            compradores.put(u.getId(), (Comprador)u);
         }
         
         try {
@@ -138,5 +195,24 @@ public class Catalogo {
         }   
         return true;
     }
+    
+    public boolean inserirNotificacao(Notificacao n){
+        notificacoes.put(n.getId(), n);
+        try {
+            notificacaoDAO.salvar(n);
+        } catch (IOException ex) {
+            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao salvar notificacao", ex);
+            return false;
+        }   
+        return true;
+    }
 
+    public boolean anuncioInCompras(Anuncio a){
+       for(Compra c : compras.values()){
+           if(c.getAnuncio().getId().equals(a.getId())){
+               return true;
+           }
+       }
+       return false;
+    }
 }

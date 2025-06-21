@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.util.UUID;
+import java.util.List;
 
 /**
  *
@@ -15,7 +15,8 @@ public abstract class Usuario {
     protected String email;
     protected String senha;
     protected String cpf;
-    protected UUID id;
+    protected String id;
+    protected List<Notificacao> notificacoes;
 
     public String getNome() {
         return nome;
@@ -49,7 +50,18 @@ public abstract class Usuario {
         this.cpf = cpf;
     }
     
-    public UUID getId() {
+    public String getId() {
         return id;
+    }
+    
+    
+    public List<Notificacao> getNotificacoes(){
+        return this.notificacoes;
+    }
+    
+    public void  adicionarNotificacao(Notificacao notificacao){
+        if(!notificacoes.contains(notificacao)){
+            this.notificacoes.add(notificacao);
+        }
     }
 }
