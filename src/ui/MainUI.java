@@ -41,6 +41,7 @@ public class MainUI extends javax.swing.JFrame {
         anunciosAtivos = new javax.swing.JMenuItem();
         anunciosEncerrados = new javax.swing.JMenuItem();
         buscarNome = new javax.swing.JMenuItem();
+        anunciosVendedor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +117,14 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
         anunciosMenu.add(buscarNome);
+
+        anunciosVendedor.setText("Buscar por Vendedor");
+        anunciosVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anunciosVendedorActionPerformed(evt);
+            }
+        });
+        anunciosMenu.add(anunciosVendedor);
 
         jMenuBar1.add(anunciosMenu);
 
@@ -208,6 +217,13 @@ public class MainUI extends javax.swing.JFrame {
         buscar.setVisible(true);
     }//GEN-LAST:event_buscarNomeActionPerformed
 
+    private void anunciosVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anunciosVendedorActionPerformed
+        // TODO add your handling code here:
+        BuscarAnuncioVendedor buscar = new BuscarAnuncioVendedor(this, true);
+        buscar.setLocationRelativeTo(this);
+        buscar.setVisible(true);
+    }//GEN-LAST:event_anunciosVendedorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -248,6 +264,7 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem anunciosAtivos;
     private javax.swing.JMenuItem anunciosEncerrados;
     private javax.swing.JMenu anunciosMenu;
+    private javax.swing.JMenuItem anunciosVendedor;
     private javax.swing.JMenuItem buscarNome;
     private javax.swing.JMenuItem cadastroComprador;
     private javax.swing.JMenu cadastroMenu;

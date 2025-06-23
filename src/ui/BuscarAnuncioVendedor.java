@@ -16,9 +16,9 @@ import model.Anuncio;
  *
  * @author vitor
  */
-public class BuscarAnuncioNome extends javax.swing.JDialog {
+public class BuscarAnuncioVendedor extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuscarAnuncioNome.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuscarAnuncioVendedor.class.getName());
     
     private JPanel resultsPanel;
     private JScrollPane scrollPane;
@@ -26,7 +26,7 @@ public class BuscarAnuncioNome extends javax.swing.JDialog {
     /**
      * Creates new form BuscarAnuncioNome
      */
-    public BuscarAnuncioNome(java.awt.Frame parent, boolean modal) {
+    public BuscarAnuncioVendedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         initResultsPanel();
@@ -112,7 +112,7 @@ public class BuscarAnuncioNome extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nome = textoBusca.getText();
         AnuncioController ac = new AnuncioController();
-        List<Anuncio> anuncios = ac.getAnunciosPorNome(nome);
+        List<Anuncio> anuncios = ac.getAnunciosPorVendedor(nome);
         
         resultsPanel.removeAll();
         
@@ -151,7 +151,7 @@ public class BuscarAnuncioNome extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                BuscarAnuncioNome dialog = new BuscarAnuncioNome(new javax.swing.JFrame(), true);
+                BuscarAnuncioVendedor dialog = new BuscarAnuncioVendedor(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
