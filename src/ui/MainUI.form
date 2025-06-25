@@ -96,7 +96,15 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Conta"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contaMenuActionPerformed"/>
+          </Events>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="listarComprasItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar Compras"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="alterarNomeItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alterar Nome"/>

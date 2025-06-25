@@ -43,6 +43,7 @@ public class MainUI extends javax.swing.JFrame {
         buscarNome = new javax.swing.JMenuItem();
         anunciosVendedor = new javax.swing.JMenuItem();
         contaMenu = new javax.swing.JMenu();
+        listarComprasItem = new javax.swing.JMenuItem();
         alterarNomeItem = new javax.swing.JMenuItem();
         alterarEmailItem = new javax.swing.JMenuItem();
         alterarSenhaItem = new javax.swing.JMenuItem();
@@ -134,6 +135,14 @@ public class MainUI extends javax.swing.JFrame {
         jMenuBar1.add(anunciosMenu);
 
         contaMenu.setText("Conta");
+        contaMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contaMenuActionPerformed(evt);
+            }
+        });
+
+        listarComprasItem.setText("Listar Compras");
+        contaMenu.add(listarComprasItem);
 
         alterarNomeItem.setText("Alterar Nome");
         alterarNomeItem.addActionListener(new java.awt.event.ActionListener() {
@@ -301,9 +310,24 @@ public class MainUI extends javax.swing.JFrame {
 
     private void logoutItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutItemActionPerformed
         // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged()) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar.");
+            return;
+        }
         Sistema.getInstance().logout();
         atualizarUsuarioLogado();
     }//GEN-LAST:event_logoutItemActionPerformed
+
+    private void contaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contaMenuActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged()) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar.");
+            return;
+        }
+        ListarCompras lc = new ListarCompras(this, true);
+        lc.setLocationRelativeTo(this);
+        lc.setVisible(true);
+    }//GEN-LAST:event_contaMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,6 +379,7 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem cadastroVendedor;
     private javax.swing.JMenu contaMenu;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem listarComprasItem;
     private javax.swing.JMenu loginMenu;
     private javax.swing.JMenuItem logoutItem;
     private javax.swing.JMenuItem usuarioLogin;
