@@ -5,15 +5,18 @@
 package ui;
 
 import controller.CompraController;
+import controller.PagamentoController;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import model.Cartao;
 import model.Compra;
+import model.Pagamento;
 
 /**
  *
@@ -49,6 +52,8 @@ public class CardCartao extends javax.swing.JPanel {
                 if (resposta == javax.swing.JOptionPane.YES_OPTION) {
                     try {
                         CompraController.editarStatusCompra(compra);
+                        Pagamento p = new Pagamento(null, compra.getVendedor(), compra, cartao, LocalDateTime.now());
+                        PagamentoController.inserirPagamento(p);
                     } catch (IOException ex) {
                         Logger.getLogger(CardCartao.class.getName()).log(Level.SEVERE, null, ex);
                     }

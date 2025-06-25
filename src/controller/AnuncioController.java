@@ -118,4 +118,10 @@ public class AnuncioController {
         
         return anuncios;
     }
+        
+    public static void atualizarLance(Anuncio a, Lance l){
+        Catalogo catalogo = Catalogo.getInstance();
+        catalogo.inserirLance(l);
+        a.atualizarLance(l);
+    }
 }
