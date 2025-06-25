@@ -70,6 +70,7 @@ public class Catalogo {
         anuncios = new HashMap<>();
         lances = new HashMap<>();
         compras = new HashMap<>();
+        pagamentos = new HashMap<>();
         notificacoes = new HashMap<>();
         avaliacoes = new HashMap<>();
         cartoes = new HashMap<>();
