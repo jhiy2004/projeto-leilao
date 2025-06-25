@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import model.Anuncio;
 import model.Comprador;
@@ -46,7 +47,7 @@ public class LanceDAO implements DAO<Lance>{
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
             for (Lance l : lances.values()) {
-                writer.write(String.format("%s,%s,%f,%s,%s\n",
+                writer.write(String.format(Locale.US, "%s,%s,%f,%s,%s\n",
                     l.getId(),
                     l.getComprador().getId(),
                     l.getValor(),
@@ -69,7 +70,7 @@ public class LanceDAO implements DAO<Lance>{
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
             for (Lance l : lances.values()) {
-                writer.write(String.format("%s,%s,%f,%s,%s\n",
+                writer.write(String.format(Locale.US, "%s,%s,%f,%s,%s\n",
                     l.getId(),
                     l.getComprador().getId(),
                     l.getValor(),
@@ -84,7 +85,7 @@ public class LanceDAO implements DAO<Lance>{
     public void salvar(Lance lance) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))){
             //id,compradorId,valor,data,anuncioId
-            writer.write(String.format("%s,%s,%f,%s,%s\n",
+            writer.write(String.format(Locale.US, "%s,%s,%f,%s,%s\n",
                 lance.getId(),
                 lance.getComprador().getId(),
                 lance.getValor(),

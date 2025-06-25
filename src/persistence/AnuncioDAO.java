@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import model.Anuncio;
 import model.Vendedor;
@@ -39,7 +40,7 @@ public class AnuncioDAO implements DAO<Anuncio> {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
             for (Anuncio a : anuncios.values()) {
-                writer.write(String.format("%s,%s,%s,%s,%s,%s,%f\n",
+                writer.write(String.format(Locale.US, "%s,%s,%s,%s,%s,%s,%.2f\n",
                     a.getId(),
                     a.getNome().replace(",", ";"),
                     a.getDescricao().replace(",", ";"),
@@ -64,7 +65,7 @@ public class AnuncioDAO implements DAO<Anuncio> {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
             for (Anuncio a : anuncios.values()) {
-                writer.write(String.format("%s,%s,%s,%s,%s,%s,%f\n",
+                writer.write(String.format(Locale.US, "%s,%s,%s,%s,%s,%s,%f\n",
                     a.getId(),
                     a.getNome().replace(",", ";"),
                     a.getDescricao().replace(",", ";"),
@@ -81,7 +82,7 @@ public class AnuncioDAO implements DAO<Anuncio> {
     public void salvar(Anuncio anuncio) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))){
             //id,nome,descricao,vendedorId,dataCriacao,dataEncerramento,valorInicial
-            writer.write(String.format("%s,%s,%s,%s,%s,%s,%f\n",
+            writer.write(String.format(Locale.US, "%s,%s,%s,%s,%s,%s,%f\n",
                 anuncio.getId(),
                 anuncio.getNome().replace(",", ";"),
                 anuncio.getDescricao().replace(",", ";"),

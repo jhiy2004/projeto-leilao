@@ -32,7 +32,7 @@ public class CompraDAO implements DAO<Compra> {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
             for (Compra c : compras.values()) {
-                writer.write(String.format("%s,%s,%f,%b,%s,%s,%s\n",
+                writer.write(String.format(Locale.US, "%s,%s,%f,%b,%s,%s,%s\n",
                     c.getId(),
                     c.getData().toString(),
                     c.getValor(),
@@ -57,7 +57,7 @@ public class CompraDAO implements DAO<Compra> {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
             for (Compra c : compras.values()) {
-                writer.write(String.format("%s,%s,%f,%b,%s,%s,%s\n",
+                writer.write(String.format(Locale.US, "%s,%s,%f,%b,%s,%s,%s\n",
                     c.getId(),
                     c.getData().toString(),
                     c.getValor(),
@@ -75,7 +75,7 @@ public class CompraDAO implements DAO<Compra> {
     public void salvar(Compra compra) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))) {
             // id,data,valor,concluida,vendedorId,compradorId,anuncioId
-            writer.write(String.format("%s,%s,%f,%b,%s,%s,%s\n",
+            writer.write(String.format(Locale.US, "%s,%s,%.2f,%b,%s,%s,%s\n",
                 compra.getId(),
                 compra.getData().toString(),
                 compra.getValor(),
