@@ -193,7 +193,7 @@ public class DetalheCompra extends javax.swing.JDialog {
                     .addComponent(dataField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dataLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(estadoField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(estadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
@@ -216,6 +216,16 @@ public class DetalheCompra extends javax.swing.JDialog {
 
     private void pagarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarButtonActionPerformed
         // TODO add your handling code here:
+        ListarCartoes lc = new ListarCartoes(parent, true, compra);
+        lc.setLocationRelativeTo(this);
+        lc.setVisible(true);
+        java.awt.Component c = DetalheCompra.this;
+        while (c != null && !(c instanceof javax.swing.JDialog)) {
+            c = c.getParent();
+        }
+        if (c instanceof javax.swing.JDialog dialog) {
+            dialog.dispose();
+        }
     }//GEN-LAST:event_pagarButtonActionPerformed
 
     private void avaliarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avaliarButtonActionPerformed

@@ -150,6 +150,7 @@ public class AdicionarCartao extends javax.swing.JDialog {
         Cartao c = new Cartao(null, numero, nomeTitular, cvv, nomeMetodo, (Comprador) Sistema.getInstance().getUsuarioLogado());
         CartaoController.adicionarCartao(c);
         javax.swing.JOptionPane.showMessageDialog(this, "Cartão cadastrado com sucesso.");
+        this.dispose();
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
     /**

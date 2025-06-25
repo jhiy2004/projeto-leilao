@@ -102,9 +102,9 @@
                   <Component id="dataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="estadoField" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
-                  <Component id="estadoLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="estadoLabel" min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="45" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">

@@ -392,4 +392,9 @@ public class Catalogo {
     public void deletarCartao(Cartao c) throws IOException{
         cartaoDAO.deletar(c);
     }
+    
+    public void editarStatusCompra(Compra c) throws IOException{
+        c.concluir();
+        compraDAO.editar(c);
+    }
 }
