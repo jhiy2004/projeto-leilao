@@ -4,7 +4,6 @@
  */
 package model;
 
-import controller.AnuncioController;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,8 @@ import java.util.UUID;
  */
 public class Vendedor extends Usuario {
     private final List<Compra> vendas;
+    private final List<Pagamento> pagamentos;
+
     
     public Vendedor(String id, String nome, String email, String senha, String cpf){
         this.id = (id == null) ? UUID.randomUUID().toString() : id;
@@ -26,6 +27,7 @@ public class Vendedor extends Usuario {
         
         this.vendas = new ArrayList<>();
         this.notificacoes = new ArrayList<>();
+        this.pagamentos = new ArrayList<>();
     }
     
     public void criarAnuncio(String nomeAnuncio, String descricaoAnuncio, LocalDateTime dataInicioAnuncio, LocalDateTime dataFimAnuncio, double valorInicial){
@@ -36,9 +38,17 @@ public class Vendedor extends Usuario {
         return this.vendas;
     }
     
+    public List<Pagamento> getPagamentos(){
+         return this.pagamentos;
+     }
+    
     public void adicionarVenda(Compra venda){
         if (!vendas.contains(venda)) {
             this.vendas.add(venda);
         }
+    }
+ 
+    public void adicionarPagamento(Pagamento pagamento){
+        pagamentos.add(pagamento);
     }
 }

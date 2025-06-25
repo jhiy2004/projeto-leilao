@@ -7,21 +7,29 @@ package catalogo;
 import controller.AnuncioController;
 import controller.LanceController;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Anuncio;
+import model.Avaliacao;
+import model.Cartao;
 import model.Compra;
 import model.Comprador;
 import model.Lance;
 import model.Notificacao;
+import model.Pagamento;
 import model.Usuario;
 import model.Vendedor;
 import persistence.AnuncioDAO;
+import persistence.AvaliacaoDAO;
+import persistence.CartaoDAO;
 import persistence.CompraDAO;
 import persistence.LanceDAO;
 import persistence.NotificacaoDAO;
+import persistence.PagamentoDAO;
 import persistence.UsuarioDAO;
 
 /**
@@ -38,12 +46,18 @@ public class Catalogo {
     
     private Map<String, Compra> compras;
     private Map<String, Notificacao> notificacoes;
+    private Map<String, Avaliacao> avaliacoes;
+    private Map<String, Cartao> cartoes;
+    private Map<String, Pagamento> pagamentos;
     
     private AnuncioDAO anuncioDAO;
     private LanceDAO lanceDAO;
     private UsuarioDAO usuarioDAO;
     private CompraDAO compraDAO;
     private NotificacaoDAO notificacaoDAO;
+    private AvaliacaoDAO avaliacaoDAO;
+    private CartaoDAO cartaoDAO;
+    private PagamentoDAO pagamentoDAO;
     
     private static Catalogo instance = null;
 
@@ -57,6 +71,8 @@ public class Catalogo {
         lances = new HashMap<>();
         compras = new HashMap<>();
         notificacoes = new HashMap<>();
+        avaliacoes = new HashMap<>();
+        cartoes = new HashMap<>();
         
         try {
             usuarios = usuarioDAO.carregar();
@@ -100,12 +116,36 @@ public class Catalogo {
             System.err.println("Erro ao carregar notificações: " + e.getMessage());
         }
         
+        avaliacaoDAO = new AvaliacaoDAO(compras);
+        try{
+            avaliacoes = avaliacaoDAO.carregar();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar avaliações: " + e.getMessage());
+        }
+        
+        cartaoDAO = new CartaoDAO(compradores);
+        try{
+            cartoes = cartaoDAO.carregar();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar cartões: " + e.getMessage());
+        }
+        
+        pagamentoDAO = new PagamentoDAO(vendedores, compras, cartoes);
+        try{
+            pagamentos = pagamentoDAO.carregar();
+        } catch(IOException e){
+            System.err.println("Erro ao carregar pagamentos: " + e.getMessage());
+        }
+        
         System.out.println("QTD COMPRADORES: " + compradores.size());
         System.out.println("QTD VENDEDORES: " + vendedores.size());
         System.out.println("QTD LANCES: "+lances.size());
         System.out.println("QTD ANUNCIOS: "+anuncios.size());
         System.out.println("QTD COMPRAS: "+compras.size());
         System.out.println("QTD NOTIFICACOES: "+notificacoes.size());
+        System.out.println("QTD AVALIACOES: "+avaliacoes.size());
+        System.out.println("QTD CARTOES: "+cartoes.size());
+        System.out.println("QTD PAGAMENTOS: "+pagamentos.size());
     }
     
     public static Catalogo getInstance(){
@@ -137,6 +177,69 @@ public class Catalogo {
     
     public Map<String, Notificacao> getNotificacoes(){
         return this.notificacoes;
+    }
+    
+    public Map<String, Avaliacao> getAvaliacoes(){
+        return this.avaliacoes;
+    }
+    
+    public Map<String, Cartao> getCartoes(){
+        return this.cartoes;
+    }
+    
+    public Map<String, Pagamento> getPagamentos(){
+        return this.pagamentos;
+    }
+    
+    public Usuario getUsuarioId(String usuarioId){
+        return this.usuarios.get(usuarioId);
+    }
+    
+    public Vendedor getVendedorId(String vendedorId) {
+        return this.vendedores.get(vendedorId);
+    }
+
+    public Comprador getCompradorId(String compradorId) {
+        return this.compradores.get(compradorId);
+    }
+
+    public Anuncio getAnuncioId(String anuncioId) {
+        return this.anuncios.get(anuncioId);
+    }
+
+    public Lance getLanceId(String lanceId) {
+        return this.lances.get(lanceId);
+    }
+
+    public Compra getCompraId(String compraId) {
+        return this.compras.get(compraId);
+    }
+
+    public Notificacao getNotificacaoId(String notificacaoId) {
+        return this.notificacoes.get(notificacaoId);
+    }
+
+    public Avaliacao getAvaliacaoId(String avaliacaoId) {
+        return this.avaliacoes.get(avaliacaoId);
+    }
+
+    public Cartao getCartaoId(String cartaoId) {
+        return this.cartoes.get(cartaoId);
+    }
+    
+    public Pagamento getPagamentoId(String pagamentoId){
+        return this.pagamentos.get(pagamentoId);
+    }
+    
+    public List<Anuncio> getAnunciosNome(String nome){
+        List<Anuncio> resultados = new ArrayList<>();
+        String nomeLower = nome.toLowerCase();
+        for(Anuncio a : anuncios.values()){
+            if(a.getNome().toLowerCase().equals(nomeLower)){
+                resultados.add(a);
+            }
+        }
+        return resultados;
     }
     
     public boolean inserirCompra(Compra compra) {
@@ -206,6 +309,40 @@ public class Catalogo {
         }   
         return true;
     }
+    
+    public boolean inserirAvaliacao(Avaliacao a){
+        avaliacoes.put(a.getId(), a);
+        try {
+            avaliacaoDAO.salvar(a);
+        } catch (IOException ex) {
+            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao salvar avaliação", ex);
+            return false;
+        }   
+        return true;
+    }
+    
+    public boolean inserirCartao(Cartao c){
+        cartoes.put(c.getId(), c);
+        try {
+            cartaoDAO.salvar(c);
+        } catch (IOException ex) {
+            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao salvar cartão", ex);
+            return false;
+        }   
+        return true;
+    }
+    
+    public boolean inserirPagamento(Pagamento p){
+        pagamentos.put(p.getId(), p);
+        try {
+            pagamentoDAO.salvar(p);
+        } catch (IOException ex) {
+            Logger.getLogger(AnuncioController.class.getName()).log(Level.SEVERE, "Erro ao salvar pagamento", ex);
+            return false;
+        }   
+        return true;
+    }
+
 
     public boolean anuncioInCompras(Anuncio a){
        for(Compra c : compras.values()){

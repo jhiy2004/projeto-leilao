@@ -4,10 +4,50 @@
  */
 package model;
 
+import java.util.UUID;
+
 /**
  *
  * @author jhiy2
  */
 public class Cartao {
+    private final String id;
+    private final String numero;
+    private final String nome_titular;
+    private final String cvv;
+    private final String nome_meio_pagamento;
+    private final Comprador comprador;
     
+    public Cartao(String id, String numero, String nome_titular, String cvv, String nome_meio_pagamento, Comprador comprador){
+        this.id = (id == null) ? UUID.randomUUID().toString() : id;
+        this.numero = numero;
+        this.nome_titular = nome_titular;
+        this.cvv = cvv;
+        this.nome_meio_pagamento = nome_meio_pagamento;
+        this.comprador = comprador;
+    }
+    
+    public String getId(){
+        return this.id;
+    }
+    
+    public String getNumero(){
+        return this.numero;
+    }
+    
+    public String getNomeTitular(){
+        return this.nome_titular;
+    }
+    
+    public String getCvv(){
+        return this.cvv;
+    }
+    
+    public String getNomeMeioPagamento(){
+        return this.nome_meio_pagamento;
+    }
+    
+    public Comprador getComprador(){
+        return this.comprador;
+    }
 }

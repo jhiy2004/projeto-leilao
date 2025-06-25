@@ -45,7 +45,7 @@ public class AnuncioController {
 
         return new ArrayList<>(anuncios.values());
     }
-    
+ 
     public static void processarEncerramentos() {
         Catalogo catalogo = Catalogo.getInstance();
         Map<String, Anuncio> anuncios = catalogo.getAnuncios();
@@ -97,23 +97,12 @@ public class AnuncioController {
 
     public Anuncio getAnuncioPorId(String id) {
         Catalogo catalogo = Catalogo.getInstance();
-        Map<String, Anuncio> anuncios = catalogo.getAnuncios();
-        
-        return anuncios.get(id);
+        return catalogo.getAnuncioId(id);
     }
     
     public List<Anuncio> getAnunciosPorNome(String nome) {
         Catalogo catalogo = Catalogo.getInstance();
-        Map<String, Anuncio> allAnuncios = catalogo.getAnuncios();
-        
-        ArrayList<Anuncio> anuncios = new ArrayList<>();
-        for(Anuncio a : allAnuncios.values()){
-            if(a.getNome().toLowerCase().equals(nome.toLowerCase())){
-                anuncios.add(a);
-            }
-        }
-        
-        return anuncios;
+        return catalogo.getAnunciosNome(nome);
     }
     
         public List<Anuncio> getAnunciosPorVendedor(String nome) {

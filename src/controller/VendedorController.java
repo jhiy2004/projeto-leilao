@@ -5,7 +5,10 @@
 package controller;
 
 import catalogo.Catalogo;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import model.Compra;
 import model.Vendedor;
 
 /**
@@ -17,5 +20,17 @@ public class VendedorController {
         Catalogo catalogo = Catalogo.getInstance();
         
         return catalogo.getVendedores();
+    }
+    
+        
+    public static List<Compra> getTodasVendasVendedor(String vendedorId) {
+        Catalogo catalogo = Catalogo.getInstance();
+        Vendedor vendedor = catalogo.getVendedorId(vendedorId);
+
+        if (vendedor == null) {
+            return new ArrayList<>();
+        }
+
+        return vendedor.getVendas();
     }
 }

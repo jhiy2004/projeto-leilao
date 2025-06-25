@@ -13,5 +13,7 @@ import java.util.Map;
  */
 public interface DAO<T> {
     void salvar(T entity) throws IOException;
+    void editar(T entity) throws IOException;
+    void deletar(T entity) throws IOException;
     Map<String, T> carregar() throws IOException;    
 }

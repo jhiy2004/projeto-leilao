@@ -28,6 +28,56 @@ public class AnuncioDAO implements DAO<Anuncio> {
     }
     
     @Override
+    public void editar(Anuncio anuncio) throws IOException {
+        Map<String, Anuncio> anuncios = carregar();
+
+        if (!anuncios.containsKey(anuncio.getId())) {
+            throw new IllegalArgumentException("Anuncio com id não encontrado: " + anuncio.getId());
+        }
+        
+        anuncios.put(anuncio.getId(), anuncio);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Anuncio a : anuncios.values()) {
+                writer.write(String.format("%s,%s,%s,%s,%s,%s,%f\n",
+                    a.getId(),
+                    a.getNome().replace(",", ";"),
+                    a.getDescricao().replace(",", ";"),
+                    a.getVendedor().getId(),
+                    a.getDataCriacao().toString(),
+                    a.getDataEncerramento().toString(),
+                    a.getValorInicial()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Anuncio anuncio) throws IOException {
+        Map<String, Anuncio> anuncios = carregar();
+
+        if (!anuncios.containsKey(anuncio.getId())) {
+            throw new IllegalArgumentException("Anuncio com id não encontrado: " + anuncio.getId());
+        }
+        
+        anuncios.remove(anuncio.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Anuncio a : anuncios.values()) {
+                writer.write(String.format("%s,%s,%s,%s,%s,%s,%f\n",
+                    a.getId(),
+                    a.getNome().replace(",", ";"),
+                    a.getDescricao().replace(",", ";"),
+                    a.getVendedor().getId(),
+                    a.getDataCriacao().toString(),
+                    a.getDataEncerramento().toString(),
+                    a.getValorInicial()
+                ));
+            }
+        }
+    }
+    
+    @Override
     public void salvar(Anuncio anuncio) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))){
             //id,nome,descricao,vendedorId,dataCriacao,dataEncerramento,valorInicial
