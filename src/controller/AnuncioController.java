@@ -49,57 +49,24 @@ public class AnuncioController {
     
     public static List<Compra> getTodasComprasComprador(String compradorId) {
         Catalogo catalogo = Catalogo.getInstance();
-        Map<String, Compra> todasCompras = catalogo.getCompras();
+        Comprador comprador = catalogo.getCompradorId(compradorId);
 
-        List<Compra> comprasDoComprador = new ArrayList<>();
-        for (Compra c : todasCompras.values()) {
-            if (c.getComprador().getId().equals(compradorId)) {
-                comprasDoComprador.add(c);
-            }
+        if (comprador == null) {
+            return new ArrayList<>();
         }
 
-        return comprasDoComprador;
+        return comprador.getCompras();
     }
     
     public static List<Compra> getTodasVendasVendedor(String vendedorId) {
         Catalogo catalogo = Catalogo.getInstance();
-        Map<String, Compra> todasCompras = catalogo.getCompras();
+        Vendedor vendedor = catalogo.getVendedorId(vendedorId);
 
-        List<Compra> comprasDoVendedor = new ArrayList<>();
-        for (Compra c : todasCompras.values()) {
-            if (c.getVendedor().getId().equals(vendedorId)) {
-                comprasDoVendedor.add(c);
-            }
+        if (vendedor == null) {
+            return new ArrayList<>();
         }
 
-        return comprasDoVendedor;
-    }
-    
-    public static boolean adicionarAvaliacaoCompra(String compraId, int nota) {
-        if (nota < 1 || nota > 5) {
-            System.out.println("Nota inválida. Deve estar entre 1 e 10.");
-            return false;
-        }
-
-        Catalogo catalogo = Catalogo.getInstance();
-        Compra compra = catalogo.getCompras().get(compraId);
-
-        if (compra == null) {
-            System.out.println("Compra não encontrada.");
-            return false;
-        }
-
-        if (compra.getAvaliacao() != null) {
-            System.out.println("Compra já foi avaliada.");
-            return false;
-        }
-
-        Avaliacao avaliacao = new Avaliacao(null, nota, compra);
-        compra.setAvaliacao(avaliacao);
-
-        catalogo.inserirAvaliacao(avaliacao);
-
-        return true;
+        return vendedor.getVendas();
     }
  
     public static void processarEncerramentos() {
@@ -153,22 +120,11 @@ public class AnuncioController {
 
     public Anuncio getAnuncioPorId(String id) {
         Catalogo catalogo = Catalogo.getInstance();
-        Map<String, Anuncio> anuncios = catalogo.getAnuncios();
-        
-        return anuncios.get(id);
+        return catalogo.getAnuncioId(id);
     }
     
     public List<Anuncio> getAnunciosPorNome(String nome) {
         Catalogo catalogo = Catalogo.getInstance();
-        Map<String, Anuncio> allAnuncios = catalogo.getAnuncios();
-        
-        ArrayList<Anuncio> anuncios = new ArrayList<>();
-        for(Anuncio a : allAnuncios.values()){
-            if(a.getNome().toLowerCase().equals(nome.toLowerCase())){
-                anuncios.add(a);
-            }
-        }
-        
-        return anuncios;
+        return catalogo.getAnunciosNome(nome);
     }
 }
