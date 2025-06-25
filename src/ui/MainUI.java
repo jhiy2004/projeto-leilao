@@ -44,6 +44,7 @@ public class MainUI extends javax.swing.JFrame {
         anunciosEncerrados = new javax.swing.JMenuItem();
         buscarNome = new javax.swing.JMenuItem();
         anunciosVendedor = new javax.swing.JMenuItem();
+        criarAnuncioItem = new javax.swing.JMenuItem();
         contaMenu = new javax.swing.JMenu();
         listarComprasItem = new javax.swing.JMenuItem();
         alterarNomeItem = new javax.swing.JMenuItem();
@@ -139,6 +140,14 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
         anunciosMenu.add(anunciosVendedor);
+
+        criarAnuncioItem.setText("Criar Anúncio");
+        criarAnuncioItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criarAnuncioItemActionPerformed(evt);
+            }
+        });
+        anunciosMenu.add(criarAnuncioItem);
 
         jMenuBar1.add(anunciosMenu);
 
@@ -430,6 +439,17 @@ public class MainUI extends javax.swing.JFrame {
         mn.setVisible(true);
     }//GEN-LAST:event_listarNotificacoesItemActionPerformed
 
+    private void criarAnuncioItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarAnuncioItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Comprador) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como vendedor).");
+            return;
+        }
+        CriarAnuncio ca = new CriarAnuncio(this, true, (Vendedor) Sistema.getInstance().getUsuarioLogado());
+        ca.setLocationRelativeTo(this);
+        ca.setVisible(true);
+    }//GEN-LAST:event_criarAnuncioItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -480,6 +500,7 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JMenu cadastroMenu;
     private javax.swing.JMenuItem cadastroVendedor;
     private javax.swing.JMenu contaMenu;
+    private javax.swing.JMenuItem criarAnuncioItem;
     private javax.swing.JMenuItem editarCartaoItem;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem listarComprasItem;
