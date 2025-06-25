@@ -41,7 +41,9 @@ public class DetalheCompra extends javax.swing.JDialog {
         
         if(compra.isConcluida()){
             estadoField.setText("Concluida");
-            avaliarButton.setVisible(true);
+            if(compra.getAvaliacao() == null){
+                avaliarButton.setVisible(true);
+            }
         }else{
             estadoField.setText("Incompleta");
             pagarButton.setVisible(true);
@@ -230,6 +232,16 @@ public class DetalheCompra extends javax.swing.JDialog {
 
     private void avaliarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avaliarButtonActionPerformed
         // TODO add your handling code here:
+        AvaliarCompra a = new AvaliarCompra(parent, true, compra);
+        a.setLocationRelativeTo(this);
+        a.setVisible(true);
+        java.awt.Component c = DetalheCompra.this;
+        while (c != null && !(c instanceof javax.swing.JDialog)) {
+            c = c.getParent();
+        }
+        if (c instanceof javax.swing.JDialog dialog) {
+            dialog.dispose();
+        }
     }//GEN-LAST:event_avaliarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
