@@ -352,4 +352,19 @@ public class Catalogo {
        }
        return false;
     }
+    
+    public void alterarNome(String nome, Usuario u) throws IOException{
+        u.setNome(nome);
+        //usuarioDAO.editar(u);
+    }
+    
+    public void alterarEmail(String email, Usuario u) throws IOException{
+        u.setEmail(email);
+        //usuarioDAO.editar(u);
+    }
+    
+    public void alterarSenha(String senha, Usuario u) throws IOException{
+        u.setSenha(senha);
+        //usuarioDAO.editar(u);
+    }
 }

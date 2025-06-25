@@ -25,8 +25,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="nome_vendedor_label" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Component id="vendedorField" min="-2" pref="298" max="-2" attributes="0"/>
@@ -45,6 +45,20 @@
                       <Component id="valor_inicial_label" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="valorField" min="-2" pref="298" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="valor_inicial_label1" min="-2" max="-2" attributes="0"/>
+                          <Component id="historicoLances" min="-2" pref="137" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="valorAtualField" min="-2" pref="298" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="darLanceButton" min="-2" pref="137" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
@@ -74,7 +88,17 @@
                   <Component id="nome_vendedor_label" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="vendedorField" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="113" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="valor_inicial_label1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="valorAtualField" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="darLanceButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="historicoLances" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -123,6 +147,33 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="jTextField1"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="darLanceButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Dar Lance"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="darLanceButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="valor_inicial_label1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Valor Atual:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="valorAtualField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="jTextField1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="historicoLances">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hist&#xf3;rico Lances"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="historicoLancesActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
