@@ -20,6 +20,72 @@ public class UsuarioDAO implements DAO<Usuario> {
     private static final String FILENAME = "usuarios.csv";
 
     @Override
+    public void editar(Usuario usuario) throws IOException {
+        Map<String, Usuario> usuarios = carregar();
+
+        if (!usuarios.containsKey(usuario.getId())) {
+            throw new IllegalArgumentException("Usuário com id não encontrado para edição: " + usuario.getId());
+        }
+
+        usuarios.put(usuario.getId(), usuario);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Usuario u : usuarios.values()) {
+                String tipo;
+                if (u instanceof Vendedor) {
+                    tipo = "vendedor";
+                } else if (u instanceof Comprador) {
+                    tipo = "comprador";
+                } else {
+                    continue;
+                }
+
+                writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
+                    u.getId(),
+                    u.getNome().replace(",", ";"),
+                    u.getEmail().replace(",", ";"),
+                    u.getSenha().replace(",", ";"),
+                    u.getCpf().replace(",", ";"),
+                    tipo
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Usuario usuario) throws IOException {
+        Map<String, Usuario> usuarios = carregar();
+
+        if (!usuarios.containsKey(usuario.getId())) {
+            throw new IllegalArgumentException("Usuário com id não encontrado para exclusão: " + usuario.getId());
+        }
+
+        usuarios.remove(usuario.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Usuario u : usuarios.values()) {
+                String tipo;
+                if (u instanceof Vendedor) {
+                    tipo = "vendedor";
+                } else if (u instanceof Comprador) {
+                    tipo = "comprador";
+                } else {
+                    continue;
+                }
+
+                writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
+                    u.getId(),
+                    u.getNome().replace(",", ";"),
+                    u.getEmail().replace(",", ";"),
+                    u.getSenha().replace(",", ";"),
+                    u.getCpf().replace(",", ";"),
+                    tipo
+                ));
+            }
+        }
+    }
+    
+    @Override
     public void salvar(Usuario usuario) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))) {
             String tipo;

@@ -5,6 +5,8 @@
 package controller;
 
 import catalogo.Catalogo;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import model.Anuncio;
 import model.Avaliacao;
@@ -24,6 +26,18 @@ public class CompradorController {
         Catalogo catalogo = Catalogo.getInstance();
         
         return catalogo.getCompradores();
+    }
+    
+        
+    public static List<Compra> getTodasComprasComprador(String compradorId) {
+        Catalogo catalogo = Catalogo.getInstance();
+        Comprador comprador = catalogo.getCompradorId(compradorId);
+
+        if (comprador == null) {
+            return new ArrayList<>();
+        }
+
+        return comprador.getCompras();
     }
     
     public static boolean adicionarCartao(String compradorId, String numero, String titular, String cvv, String nome_meio){

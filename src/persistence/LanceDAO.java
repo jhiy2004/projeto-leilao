@@ -35,6 +35,52 @@ public class LanceDAO implements DAO<Lance>{
     }
     
     @Override
+    public void editar(Lance lance) throws IOException {
+        Map<String, Lance> lances = carregar();
+        
+        if (!lances.containsKey(lance.getId())) {
+            throw new IllegalArgumentException("Lance com id não encontrado: " + lance.getId());
+        }
+        
+        lances.put(lance.getId(), lance);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Lance l : lances.values()) {
+                writer.write(String.format("%s,%s,%f,%s,%s\n",
+                    l.getId(),
+                    l.getComprador().getId(),
+                    l.getValor(),
+                    l.getData().toString(),
+                    l.getAnuncio().getId()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Lance lance) throws IOException {
+        Map<String, Lance> lances = carregar();
+        
+        if (!lances.containsKey(lance.getId())) {
+            throw new IllegalArgumentException("Lance com id não encontrado: " + lance.getId());
+        }
+        
+        lances.remove(lance.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Lance l : lances.values()) {
+                writer.write(String.format("%s,%s,%f,%s,%s\n",
+                    l.getId(),
+                    l.getComprador().getId(),
+                    l.getValor(),
+                    l.getData().toString(),
+                    l.getAnuncio().getId()
+                ));
+            }
+        }
+    }
+    
+    @Override
     public void salvar(Lance lance) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))){
             //id,compradorId,valor,data,anuncioId

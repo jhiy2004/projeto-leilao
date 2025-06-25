@@ -16,9 +16,53 @@ public class AvaliacaoDAO implements DAO<Avaliacao> {
     }
 
     @Override
+    public void editar(Avaliacao avaliacao) throws IOException {
+        Map<String, Avaliacao> avaliacoes = carregar();
+
+        if (!avaliacoes.containsKey(avaliacao.getId())) {
+            throw new IllegalArgumentException("Avaliacao com id não encontrado: " + avaliacao.getId());
+        }
+        
+        avaliacoes.put(avaliacao.getId(), avaliacao);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Avaliacao a : avaliacoes.values()) {
+                writer.write(String.format("%s,%d,%s,%s\n",
+                    a.getId(),
+                    a.getNota(),
+                    a.getData().toString(),
+                    a.getCompra().getId()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Avaliacao avaliacao) throws IOException {
+        Map<String, Avaliacao> avaliacoes = carregar();
+
+        if (!avaliacoes.containsKey(avaliacao.getId())) {
+            throw new IllegalArgumentException("Avaliacao com id não encontrado: " + avaliacao.getId());
+        }
+        
+        avaliacoes.remove(avaliacao.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Avaliacao a : avaliacoes.values()) {
+                writer.write(String.format("%s,%d,%s,%s\n",
+                    a.getId(),
+                    a.getNota(),
+                    a.getData().toString(),
+                    a.getCompra().getId()
+                ));
+            }
+        }
+    }
+    
+    @Override
     public void salvar(Avaliacao avaliacao) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))) {
-            // Formato: id,nota,data,compraId
+            // id,nota,data,compraId
             writer.write(String.format("%s,%d,%s,%s\n",
                 avaliacao.getId(),
                 avaliacao.getNota(),

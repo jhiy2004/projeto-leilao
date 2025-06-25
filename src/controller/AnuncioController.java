@@ -13,7 +13,6 @@ import model.Lance;
 import model.Vendedor;
 import catalogo.Catalogo;
 import java.util.Map;
-import model.Avaliacao;
 import model.Compra;
 import model.Notificacao;
 
@@ -45,28 +44,6 @@ public class AnuncioController {
         Map<String, Anuncio> anuncios = catalogo.getAnuncios();
 
         return new ArrayList<>(anuncios.values());
-    }
-    
-    public static List<Compra> getTodasComprasComprador(String compradorId) {
-        Catalogo catalogo = Catalogo.getInstance();
-        Comprador comprador = catalogo.getCompradorId(compradorId);
-
-        if (comprador == null) {
-            return new ArrayList<>();
-        }
-
-        return comprador.getCompras();
-    }
-    
-    public static List<Compra> getTodasVendasVendedor(String vendedorId) {
-        Catalogo catalogo = Catalogo.getInstance();
-        Vendedor vendedor = catalogo.getVendedorId(vendedorId);
-
-        if (vendedor == null) {
-            return new ArrayList<>();
-        }
-
-        return vendedor.getVendas();
     }
  
     public static void processarEncerramentos() {

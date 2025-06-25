@@ -21,6 +21,52 @@ public class PagamentoDAO implements DAO<Pagamento> {
     }
 
     @Override
+    public void editar(Pagamento pagamento) throws IOException {
+        Map<String, Pagamento> pagamentos = carregar();
+
+        if (!pagamentos.containsKey(pagamento.getId())) {
+            throw new IllegalArgumentException("Pagamento com id não encontrado para edição: " + pagamento.getId());
+        }
+
+        pagamentos.put(pagamento.getId(), pagamento);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Pagamento p : pagamentos.values()) {
+                writer.write(String.format("%s,%s,%s,%s,%s\n",
+                    p.getId(),
+                    p.getVendedor().getId(),
+                    p.getCompra().getId(),
+                    p.getCartao().getId(),
+                    p.getData().toString()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Pagamento pagamento) throws IOException {
+        Map<String, Pagamento> pagamentos = carregar();
+
+        if (!pagamentos.containsKey(pagamento.getId())) {
+            throw new IllegalArgumentException("Pagamento com id não encontrado para exclusão: " + pagamento.getId());
+        }
+
+        pagamentos.remove(pagamento.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Pagamento p : pagamentos.values()) {
+                writer.write(String.format("%s,%s,%s,%s,%s\n",
+                    p.getId(),
+                    p.getVendedor().getId(),
+                    p.getCompra().getId(),
+                    p.getCartao().getId(),
+                    p.getData().toString()
+                ));
+            }
+        }
+    }
+
+    @Override
     public void salvar(Pagamento pagamento) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))) {
             // id,vendedorId,compraId,cartaoId,data

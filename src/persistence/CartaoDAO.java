@@ -14,6 +14,54 @@ public class CartaoDAO implements DAO<Cartao> {
     }
 
     @Override
+    public void editar(Cartao cartao) throws IOException {
+        Map<String, Cartao> cartoes = carregar();
+
+        if (!cartoes.containsKey(cartao.getId())) {
+            throw new IllegalArgumentException("Cartao com id não encontrado: " + cartao.getId());
+        }
+        
+        cartoes.put(cartao.getId(), cartao);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Cartao c : cartoes.values()) {
+                writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
+                    c.getId(),
+                    c.getNumero(),
+                    c.getNomeTitular(),
+                    c.getCvv(),
+                    c.getNomeMeioPagamento(),
+                    c.getComprador().getId()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Cartao cartao) throws IOException {
+        Map<String, Cartao> cartoes = carregar();
+
+        if (!cartoes.containsKey(cartao.getId())) {
+            throw new IllegalArgumentException("Cartao com id não encontrado: " + cartao.getId());
+        }
+        
+        cartoes.remove(cartao.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Cartao c : cartoes.values()) {
+                writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
+                    c.getId(),
+                    c.getNumero(),
+                    c.getNomeTitular(),
+                    c.getCvv(),
+                    c.getNomeMeioPagamento(),
+                    c.getComprador().getId()
+                ));
+            }
+        }
+    }
+    
+    @Override
     public void salvar(Cartao cartao) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))) {
             // id,numero,nome_titular,cvv,nome_meio_pagamento,compradorId

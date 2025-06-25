@@ -14,6 +14,50 @@ public class NotificacaoDAO implements DAO<Notificacao> {
     }
 
     @Override
+    public void editar(Notificacao n) throws IOException {
+        Map<String, Notificacao> notificacoes = carregar();
+
+        if (!notificacoes.containsKey(n.getId())) {
+            throw new IllegalArgumentException("Notificação com id não encontrada: " + n.getId());
+        }
+
+        notificacoes.put(n.getId(), n);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Notificacao notif : notificacoes.values()) {
+                writer.write(String.format("%s,%s,%b,%s\n",
+                    notif.getId(),
+                    notif.getMensagem().replace(",", ";"),
+                    notif.isVisualizada(),
+                    notif.getUsuario().getId()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Notificacao n) throws IOException {
+        Map<String, Notificacao> notificacoes = carregar();
+
+        if (!notificacoes.containsKey(n.getId())) {
+            throw new IllegalArgumentException("Notificação com id não encontrada: " + n.getId());
+        }
+
+        notificacoes.remove(n.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Notificacao notif : notificacoes.values()) {
+                writer.write(String.format("%s,%s,%b,%s\n",
+                    notif.getId(),
+                    notif.getMensagem().replace(",", ";"),
+                    notif.isVisualizada(),
+                    notif.getUsuario().getId()
+                ));
+            }
+        }
+    }
+    
+    @Override
     public void salvar(Notificacao n) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true))) {
             // id,mensagem,visualizada,usuarioId

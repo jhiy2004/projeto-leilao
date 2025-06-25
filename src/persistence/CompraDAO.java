@@ -19,6 +19,57 @@ public class CompraDAO implements DAO<Compra> {
         this.vendedores = vendedores;
         this.anuncios = anuncios;
     }
+    
+    @Override
+    public void editar(Compra compra) throws IOException {
+        Map<String, Compra> compras = carregar();
+        
+        if (!compras.containsKey(compra.getId())) {
+            throw new IllegalArgumentException("Compra com id não encontrado: " + compra.getId());
+        }
+        
+        compras.put(compra.getId(), compra);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Compra c : compras.values()) {
+                writer.write(String.format("%s,%s,%f,%b,%s,%s,%s\n",
+                    c.getId(),
+                    c.getData().toString(),
+                    c.getValor(),
+                    c.isConcluida(),
+                    c.getVendedor().getId(),
+                    c.getComprador().getId(),
+                    c.getAnuncio().getId()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void deletar(Compra compra) throws IOException {
+        Map<String, Compra> compras = carregar();
+        
+        if (!compras.containsKey(compra.getId())) {
+            throw new IllegalArgumentException("Compra com id não encontrado: " + compra.getId());
+        }
+        
+        compras.remove(compra.getId());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, false))) {
+            for (Compra c : compras.values()) {
+                writer.write(String.format("%s,%s,%f,%b,%s,%s,%s\n",
+                    c.getId(),
+                    c.getData().toString(),
+                    c.getValor(),
+                    c.isConcluida(),
+                    c.getVendedor().getId(),
+                    c.getComprador().getId(),
+                    c.getAnuncio().getId()
+                ));
+            }
+        }
+    }
+
 
     @Override
     public void salvar(Compra compra) throws IOException {
