@@ -354,18 +354,47 @@ public class Catalogo {
        return false;
     }
     
-    public void alterarNome(String nome, Usuario u) throws IOException{
+    public void alterarNomeUsuario(String nome, Usuario u) throws IOException{
         u.setNome(nome);
-        //usuarioDAO.editar(u);
+        usuarioDAO.editar(u);
     }
     
-    public void alterarEmail(String email, Usuario u) throws IOException{
+    public void alterarEmailUsuario(String email, Usuario u) throws IOException{
         u.setEmail(email);
-        //usuarioDAO.editar(u);
+        usuarioDAO.editar(u);
     }
     
-    public void alterarSenha(String senha, Usuario u) throws IOException{
+    public void alterarSenhaUsuario(String senha, Usuario u) throws IOException{
         u.setSenha(senha);
-        //usuarioDAO.editar(u);
+        usuarioDAO.editar(u);
+    }
+    
+    public void alterarNomeTitularCartao(String nome, Cartao c) throws IOException{
+        c.setNomeTitular(nome);
+        cartaoDAO.editar(c);
+    }
+    
+    public void alterarNomeMetodoCartao(String nome, Cartao c) throws IOException{
+        c.setNomeMeioPagamento(nome);
+        cartaoDAO.editar(c);
+    }
+    
+    public void alterarNumeroCartao(String numero, Cartao c) throws IOException{
+        c.setNumero(numero);
+        cartaoDAO.editar(c);
+    }
+    
+    public void alterarCVVCartao(String cvv, Cartao c) throws IOException{
+        c.setCVV(cvv);
+        cartaoDAO.editar(c);
+    }
+    
+    public void deletarCartao(Cartao c) throws IOException{
+        cartaoDAO.deletar(c);
+    }
+    
+    public void editarStatusCompra(Compra c) throws IOException{
+        c.concluir();
+        compraDAO.editar(c);
     }
 }

@@ -5,7 +5,9 @@
 package ui;
 
 import javax.swing.JOptionPane;
+import model.Comprador;
 import model.Sistema;
+import model.Vendedor;
 
 /**
  *
@@ -42,12 +44,19 @@ public class MainUI extends javax.swing.JFrame {
         anunciosEncerrados = new javax.swing.JMenuItem();
         buscarNome = new javax.swing.JMenuItem();
         anunciosVendedor = new javax.swing.JMenuItem();
+        criarAnuncioItem = new javax.swing.JMenuItem();
         contaMenu = new javax.swing.JMenu();
         listarComprasItem = new javax.swing.JMenuItem();
         alterarNomeItem = new javax.swing.JMenuItem();
         alterarEmailItem = new javax.swing.JMenuItem();
         alterarSenhaItem = new javax.swing.JMenuItem();
         logoutItem = new javax.swing.JMenuItem();
+        pagamentoMenu = new javax.swing.JMenu();
+        adicionarCartaoItem = new javax.swing.JMenuItem();
+        removerCartaoItem = new javax.swing.JMenuItem();
+        editarCartaoItem = new javax.swing.JMenuItem();
+        notificacoesMenu = new javax.swing.JMenu();
+        listarNotificacoesItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,6 +141,14 @@ public class MainUI extends javax.swing.JFrame {
         });
         anunciosMenu.add(anunciosVendedor);
 
+        criarAnuncioItem.setText("Criar Anúncio");
+        criarAnuncioItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criarAnuncioItemActionPerformed(evt);
+            }
+        });
+        anunciosMenu.add(criarAnuncioItem);
+
         jMenuBar1.add(anunciosMenu);
 
         contaMenu.setText("Conta");
@@ -142,6 +159,11 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         listarComprasItem.setText("Listar Compras");
+        listarComprasItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarComprasItemActionPerformed(evt);
+            }
+        });
         contaMenu.add(listarComprasItem);
 
         alterarNomeItem.setText("Alterar Nome");
@@ -177,6 +199,46 @@ public class MainUI extends javax.swing.JFrame {
         contaMenu.add(logoutItem);
 
         jMenuBar1.add(contaMenu);
+
+        pagamentoMenu.setText("Pagamento");
+
+        adicionarCartaoItem.setText("Adicionar Cartão");
+        adicionarCartaoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarCartaoItemActionPerformed(evt);
+            }
+        });
+        pagamentoMenu.add(adicionarCartaoItem);
+
+        removerCartaoItem.setText("Remover Cartão");
+        removerCartaoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerCartaoItemActionPerformed(evt);
+            }
+        });
+        pagamentoMenu.add(removerCartaoItem);
+
+        editarCartaoItem.setText("Editar Cartão");
+        editarCartaoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarCartaoItemActionPerformed(evt);
+            }
+        });
+        pagamentoMenu.add(editarCartaoItem);
+
+        jMenuBar1.add(pagamentoMenu);
+
+        notificacoesMenu.setText("Notificações");
+
+        listarNotificacoesItem.setText("Listar Notificações");
+        listarNotificacoesItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarNotificacoesItemActionPerformed(evt);
+            }
+        });
+        notificacoesMenu.add(listarNotificacoesItem);
+
+        jMenuBar1.add(notificacoesMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -320,14 +382,73 @@ public class MainUI extends javax.swing.JFrame {
 
     private void contaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contaMenuActionPerformed
         // TODO add your handling code here:
-        if (!Sistema.getInstance().isLogged()) {
-            JOptionPane.showMessageDialog(this, "Realize login para continuar.");
+    }//GEN-LAST:event_contaMenuActionPerformed
+
+    private void listarComprasItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarComprasItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Vendedor) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como comprador).");
             return;
         }
         ListarCompras lc = new ListarCompras(this, true);
         lc.setLocationRelativeTo(this);
         lc.setVisible(true);
-    }//GEN-LAST:event_contaMenuActionPerformed
+    }//GEN-LAST:event_listarComprasItemActionPerformed
+
+    private void adicionarCartaoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarCartaoItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Vendedor) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como comprador).");
+            return;
+        }
+        AdicionarCartao ac = new AdicionarCartao(this, true);
+        ac.setLocationRelativeTo(this);
+        ac.setVisible(true);
+    }//GEN-LAST:event_adicionarCartaoItemActionPerformed
+
+    private void removerCartaoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerCartaoItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Vendedor) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como comprador).");
+            return;
+        }
+        ListarCartoesRemover lr = new ListarCartoesRemover(this, true);
+        lr.setLocationRelativeTo(this);
+        lr.setVisible(true);
+    }//GEN-LAST:event_removerCartaoItemActionPerformed
+
+    private void editarCartaoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarCartaoItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Vendedor) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como comprador).");
+            return;
+        }
+        ListarCartoesEditar lc = new ListarCartoesEditar(this, true);
+        lc.setLocationRelativeTo(this);
+        lc.setVisible(true);
+    }//GEN-LAST:event_editarCartaoItemActionPerformed
+
+    private void listarNotificacoesItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarNotificacoesItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Comprador) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como vendedor).");
+            return;
+        }
+        MensagensNotificacao mn = new MensagensNotificacao(this, true);
+        mn.setLocationRelativeTo(this);
+        mn.setVisible(true);
+    }//GEN-LAST:event_listarNotificacoesItemActionPerformed
+
+    private void criarAnuncioItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarAnuncioItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Comprador) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como vendedor).");
+            return;
+        }
+        CriarAnuncio ca = new CriarAnuncio(this, true, (Vendedor) Sistema.getInstance().getUsuarioLogado());
+        ca.setLocationRelativeTo(this);
+        ca.setVisible(true);
+    }//GEN-LAST:event_criarAnuncioItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,6 +486,7 @@ public class MainUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem adicionarCartaoItem;
     private javax.swing.JMenuItem alterarEmailItem;
     private javax.swing.JMenuItem alterarNomeItem;
     private javax.swing.JMenuItem alterarSenhaItem;
@@ -378,10 +500,16 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JMenu cadastroMenu;
     private javax.swing.JMenuItem cadastroVendedor;
     private javax.swing.JMenu contaMenu;
+    private javax.swing.JMenuItem criarAnuncioItem;
+    private javax.swing.JMenuItem editarCartaoItem;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem listarComprasItem;
+    private javax.swing.JMenuItem listarNotificacoesItem;
     private javax.swing.JMenu loginMenu;
     private javax.swing.JMenuItem logoutItem;
+    private javax.swing.JMenu notificacoesMenu;
+    private javax.swing.JMenu pagamentoMenu;
+    private javax.swing.JMenuItem removerCartaoItem;
     private javax.swing.JMenuItem usuarioLogin;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

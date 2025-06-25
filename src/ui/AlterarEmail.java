@@ -95,7 +95,7 @@ public class AlterarEmail extends javax.swing.JDialog {
         UsuarioController uc = new UsuarioController();
         
         try {
-            uc.alterarEmail(email, user);
+            uc.alterarEmailUsuario(email, user);
             javax.swing.JOptionPane.showMessageDialog(this, "Email alterado com sucesso.");
         } catch (IOException ex) {
             Logger.getLogger(AlterarEmail.class.getName()).log(Level.SEVERE, null, ex);

@@ -12,10 +12,10 @@ import java.util.UUID;
  */
 public class Cartao {
     private final String id;
-    private final String numero;
-    private final String nome_titular;
-    private final String cvv;
-    private final String nome_meio_pagamento;
+    private String numero;
+    private String nome_titular;
+    private String cvv;
+    private String nome_meio_pagamento;
     private final Comprador comprador;
     
     public Cartao(String id, String numero, String nome_titular, String cvv, String nome_meio_pagamento, Comprador comprador){
@@ -49,5 +49,21 @@ public class Cartao {
     
     public Comprador getComprador(){
         return this.comprador;
+    }
+    
+    public void setNumero(String numero){
+        this.numero = numero;
+    }
+    
+    public void setNomeTitular(String nome_titular){
+        this.nome_titular = nome_titular;
+    }
+    
+    public void setNomeMeioPagamento(String nome_meio_pagamento){
+        this.nome_meio_pagamento = nome_meio_pagamento;
+    }
+    
+    public void setCVV(String cvv){
+        this.cvv = cvv;
     }
 }

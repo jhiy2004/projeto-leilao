@@ -5,16 +5,10 @@
 package controller;
 
 import catalogo.Catalogo;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import model.Anuncio;
 import model.Comprador;
 import model.Lance;
-import persistence.LanceDAO;
 
 /**
  *
