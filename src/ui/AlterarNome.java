@@ -95,7 +95,7 @@ public class AlterarNome extends javax.swing.JDialog {
         UsuarioController uc = new UsuarioController();
         
         try {
-            uc.alterarNome(nome, user);
+            uc.alterarNomeUsuario(nome, user);
             javax.swing.JOptionPane.showMessageDialog(this, "Nome alterado com sucesso.");
         } catch (IOException ex) {
             Logger.getLogger(AlterarNome.class.getName()).log(Level.SEVERE, null, ex);

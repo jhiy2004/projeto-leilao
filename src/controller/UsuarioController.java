@@ -142,21 +142,21 @@ public class UsuarioController {
         }
     }
     
-    public void alterarNome(String nome, Usuario user) throws IOException{
+    public void alterarNomeUsuario(String nome, Usuario user) throws IOException{
         Catalogo catalogo = Catalogo.getInstance();
         
-        catalogo.alterarNome(nome, user);
+        catalogo.alterarNomeUsuario(nome, user);
     }
     
-    public void alterarEmail(String email, Usuario user) throws IOException{
+    public void alterarEmailUsuario(String email, Usuario user) throws IOException{
         Catalogo catalogo = Catalogo.getInstance();
         
-        catalogo.alterarEmail(email, user);
+        catalogo.alterarEmailUsuario(email, user);
     }
     
-    public void alterarSenha(String senha, Usuario user) throws IOException{
+    public void alterarSenhaUsuario(String senha, Usuario user) throws IOException{
         Catalogo catalogo = Catalogo.getInstance();
         
-        catalogo.alterarSenha(senha, user);
+        catalogo.alterarSenhaUsuario(senha, user);
     }
 }

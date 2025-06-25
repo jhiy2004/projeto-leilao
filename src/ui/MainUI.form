@@ -104,6 +104,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listar Compras"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listarComprasItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="alterarNomeItem">
               <Properties>
@@ -135,6 +138,37 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="pagamentoMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pagamento"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="adicionarCartaoItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Adicionar Cart&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionarCartaoItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="removerCartaoItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remover Cart&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerCartaoItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="editarCartaoItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar Cart&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarCartaoItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
