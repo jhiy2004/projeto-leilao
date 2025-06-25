@@ -5,6 +5,7 @@
 package ui;
 
 import javax.swing.JOptionPane;
+import model.Comprador;
 import model.Sistema;
 import model.Vendedor;
 
@@ -53,6 +54,8 @@ public class MainUI extends javax.swing.JFrame {
         adicionarCartaoItem = new javax.swing.JMenuItem();
         removerCartaoItem = new javax.swing.JMenuItem();
         editarCartaoItem = new javax.swing.JMenuItem();
+        notificacoesMenu = new javax.swing.JMenu();
+        listarNotificacoesItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -215,6 +218,18 @@ public class MainUI extends javax.swing.JFrame {
         pagamentoMenu.add(editarCartaoItem);
 
         jMenuBar1.add(pagamentoMenu);
+
+        notificacoesMenu.setText("Notificações");
+
+        listarNotificacoesItem.setText("Listar Notificações");
+        listarNotificacoesItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarNotificacoesItemActionPerformed(evt);
+            }
+        });
+        notificacoesMenu.add(listarNotificacoesItem);
+
+        jMenuBar1.add(notificacoesMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -404,6 +419,17 @@ public class MainUI extends javax.swing.JFrame {
         lc.setVisible(true);
     }//GEN-LAST:event_editarCartaoItemActionPerformed
 
+    private void listarNotificacoesItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarNotificacoesItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged() || Sistema.getInstance().getUsuarioLogado() instanceof Comprador) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar (como vendedor).");
+            return;
+        }
+        MensagensNotificacao mn = new MensagensNotificacao(this, true);
+        mn.setLocationRelativeTo(this);
+        mn.setVisible(true);
+    }//GEN-LAST:event_listarNotificacoesItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,8 +483,10 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem editarCartaoItem;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem listarComprasItem;
+    private javax.swing.JMenuItem listarNotificacoesItem;
     private javax.swing.JMenu loginMenu;
     private javax.swing.JMenuItem logoutItem;
+    private javax.swing.JMenu notificacoesMenu;
     private javax.swing.JMenu pagamentoMenu;
     private javax.swing.JMenuItem removerCartaoItem;
     private javax.swing.JMenuItem usuarioLogin;
