@@ -42,6 +42,11 @@ public class MainUI extends javax.swing.JFrame {
         anunciosEncerrados = new javax.swing.JMenuItem();
         buscarNome = new javax.swing.JMenuItem();
         anunciosVendedor = new javax.swing.JMenuItem();
+        contaMenu = new javax.swing.JMenu();
+        alterarNomeItem = new javax.swing.JMenuItem();
+        alterarEmailItem = new javax.swing.JMenuItem();
+        alterarSenhaItem = new javax.swing.JMenuItem();
+        logoutItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,6 +133,42 @@ public class MainUI extends javax.swing.JFrame {
 
         jMenuBar1.add(anunciosMenu);
 
+        contaMenu.setText("Conta");
+
+        alterarNomeItem.setText("Alterar Nome");
+        alterarNomeItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarNomeItemActionPerformed(evt);
+            }
+        });
+        contaMenu.add(alterarNomeItem);
+
+        alterarEmailItem.setText("Alterar Email");
+        alterarEmailItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarEmailItemActionPerformed(evt);
+            }
+        });
+        contaMenu.add(alterarEmailItem);
+
+        alterarSenhaItem.setText("Alterar Senha");
+        alterarSenhaItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarSenhaItemActionPerformed(evt);
+            }
+        });
+        contaMenu.add(alterarSenhaItem);
+
+        logoutItem.setText("Logout");
+        logoutItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutItemActionPerformed(evt);
+            }
+        });
+        contaMenu.add(logoutItem);
+
+        jMenuBar1.add(contaMenu);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,8 +177,8 @@ public class MainUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,6 +265,46 @@ public class MainUI extends javax.swing.JFrame {
         buscar.setVisible(true);
     }//GEN-LAST:event_anunciosVendedorActionPerformed
 
+    private void alterarNomeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarNomeItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged()) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar.");
+            return;
+        }
+        AlterarNome an = new AlterarNome(this, true);
+        an.setLocationRelativeTo(this);
+        an.setVisible(true);
+        atualizarUsuarioLogado();
+    }//GEN-LAST:event_alterarNomeItemActionPerformed
+
+    private void alterarEmailItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarEmailItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged()) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar.");
+            return;
+        }
+        AlterarEmail ae = new AlterarEmail(this, true);
+        ae.setLocationRelativeTo(this);
+        ae.setVisible(true);
+    }//GEN-LAST:event_alterarEmailItemActionPerformed
+
+    private void alterarSenhaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarSenhaItemActionPerformed
+        // TODO add your handling code here:
+        if (!Sistema.getInstance().isLogged()) {
+            JOptionPane.showMessageDialog(this, "Realize login para continuar.");
+            return;
+        }
+        AlterarSenha as = new AlterarSenha(this, true);
+        as.setLocationRelativeTo(this);
+        as.setVisible(true);
+    }//GEN-LAST:event_alterarSenhaItemActionPerformed
+
+    private void logoutItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutItemActionPerformed
+        // TODO add your handling code here:
+        Sistema.getInstance().logout();
+        atualizarUsuarioLogado();
+    }//GEN-LAST:event_logoutItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +341,9 @@ public class MainUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem alterarEmailItem;
+    private javax.swing.JMenuItem alterarNomeItem;
+    private javax.swing.JMenuItem alterarSenhaItem;
     private javax.swing.JMenuItem anuncios;
     private javax.swing.JMenuItem anunciosAtivos;
     private javax.swing.JMenuItem anunciosEncerrados;
@@ -269,8 +353,10 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem cadastroComprador;
     private javax.swing.JMenu cadastroMenu;
     private javax.swing.JMenuItem cadastroVendedor;
+    private javax.swing.JMenu contaMenu;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu loginMenu;
+    private javax.swing.JMenuItem logoutItem;
     private javax.swing.JMenuItem usuarioLogin;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
