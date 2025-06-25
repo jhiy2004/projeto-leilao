@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import model.Anuncio;
 
 /**
  *
@@ -18,17 +19,15 @@ public class CardAnuncio extends javax.swing.JPanel {
     private String vendedor;
     /**
      * Creates new form CardLeilao
-     * @param nome
-     * @param descricao
-     * @param preco
+     * @param anuncio
      */
-    public CardAnuncio(String nome, String descricao, double preco, String vendedor) {
+    public CardAnuncio(Anuncio anuncio) {
         initComponents();
         
-        descField.setText(descricao);
-        nomeField.setText(nome);
-        precoField.setText(Double.toString(preco));
-        this.vendedor = vendedor;
+        descField.setText(anuncio.getDescricao());
+        nomeField.setText(anuncio.getNome());
+        precoField.setText(Double.toString(anuncio.getValorInicial()));
+        this.vendedor = anuncio.getVendedor().getNome();
         setBackground(Color.LIGHT_GRAY); // cor padrão
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
@@ -38,7 +37,7 @@ public class CardAnuncio extends javax.swing.JPanel {
                 selecionado = true;
                 atualizarEstilo();
                 DetalheAnuncio detalheAnuncio;
-                detalheAnuncio = new DetalheAnuncio(null, true, nomeField.getText(), precoField.getText(), descField.getText(), CardAnuncio.this.vendedor);
+                detalheAnuncio = new DetalheAnuncio(null, true, anuncio);
                 detalheAnuncio.setLocationRelativeTo(CardAnuncio.this);
                 detalheAnuncio.setVisible(true);
                 selecionado = false;

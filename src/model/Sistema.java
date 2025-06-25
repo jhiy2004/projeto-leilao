@@ -29,6 +29,11 @@ public class Sistema {
         userLogged = user;
     }
     
+    public void logout(){
+        logado = false;
+        userLogged = null;
+    }
+    
     public Usuario getUsuarioLogado(){
         return userLogged;
     }

@@ -141,39 +141,6 @@ public class CadastroCompradorUI extends javax.swing.JDialog {
     private void nomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeFieldActionPerformed
-
-    private boolean cpfValido(String cpf) {
-        // Remove caracteres não numéricos
-        cpf = cpf.replaceAll("[^\\d]", "");
-
-        // CPF deve ter 11 dígitos e não pode ter todos os dígitos iguais
-        if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}")) {
-            return false;
-        }
-
-        try {
-            int soma = 0;
-            for (int i = 0; i < 9; i++) {
-                soma += (cpf.charAt(i) - '0') * (10 - i);
-            }
-
-            int digito1 = 11 - (soma % 11);
-            if (digito1 >= 10) digito1 = 0;
-            if (digito1 != (cpf.charAt(9) - '0')) return false;
-
-            soma = 0;
-            for (int i = 0; i < 10; i++) {
-                soma += (cpf.charAt(i) - '0') * (11 - i);
-            }
-
-            int digito2 = 11 - (soma % 11);
-            if (digito2 >= 10) digito2 = 0;
-            return digito2 == (cpf.charAt(10) - '0');
-
-        } catch (Exception e) {
-            return false;
-        }
-    }
     
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         String nome = nomeField.getText().trim();
@@ -187,18 +154,23 @@ public class CadastroCompradorUI extends javax.swing.JDialog {
             javax.swing.JOptionPane.showMessageDialog(this, "Preencha todos os campos.");
             return;
         }
+        
+        if(!userControl.nomeValido(nome)){
+            javax.swing.JOptionPane.showMessageDialog(this, "Nome inválido.");
+            return;
+        }
 
-        if (senha.length() < 8) {
+        if (!userControl.senhaValida(senha)) {
             javax.swing.JOptionPane.showMessageDialog(this, "A senha deve ter pelo menos 8 caracteres.");
             return;
         }
 
-        if (!email.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$")) {
+        if (!userControl.emailValido(email)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Email inválido.");
             return;
         }
 
-        if (!cpfValido(cpf)) {
+        if (!userControl.cpfValido(cpf)) {
             javax.swing.JOptionPane.showMessageDialog(this, "CPF inválido.");
             return;
         }
