@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,10 +27,6 @@ public class Vendedor extends Usuario {
         this.vendas = new ArrayList<>();
         this.notificacoes = new ArrayList<>();
         this.pagamentos = new ArrayList<>();
-    }
-    
-    public void criarAnuncio(String nomeAnuncio, String descricaoAnuncio, LocalDateTime dataInicioAnuncio, LocalDateTime dataFimAnuncio, double valorInicial){
-        //AnuncioController.criarAnuncio(nomeAnuncio, descricaoAnuncio, this, dataInicioAnuncio, dataFimAnuncio, valorInicial);
     }
     
     public List<Compra> getVendas(){
