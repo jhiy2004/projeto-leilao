@@ -80,17 +80,17 @@ public class UsuarioController {
     }
     
     public static boolean nomeValido(String nome) {
-    // Lista de caracteres inválidos
-    String caracteresInvalidos = "0123456789*-.;/!@#$%^&*()_+=[]{}|:;\"'<>,.?/~`\\";
-    
-    for (char c : caracteresInvalidos.toCharArray()) {
-        if (nome.indexOf(c) != -1) {
-            return false;
-        }
-    }
+        // Lista de caracteres inválidos
+        String caracteresInvalidos = "0123456789*-.;/!@#$%^&*()_+=[]{}|:;\"'<>,.?/~`\\";
 
-    return true;
-}
+        for (char c : caracteresInvalidos.toCharArray()) {
+            if (nome.indexOf(c) != -1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
     
     public static boolean senhaValida(String senha){
         if (senha.length() < 8) {
