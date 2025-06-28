@@ -38,9 +38,9 @@ public class Comprador extends Usuario {
         return this.cartoes;
     }
      
-     public List<Pagamento> getPagamentos(){
-         return this.pagamentos;
-     }
+    public List<Pagamento> getPagamentos(){
+        return this.pagamentos;
+    }
     
     public void adicionarCompra(Compra compra){
         if (!compras.contains(compra)) {

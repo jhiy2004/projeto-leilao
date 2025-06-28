@@ -40,6 +40,18 @@ public class CompradorController {
         return comprador.getCompras();
     }
     
+    public static List<Cartao> getTodosCartoesComprador(String compradorId){
+        Catalogo catalogo = Catalogo.getInstance();
+        
+        Comprador comprador = catalogo.getCompradorId(compradorId);
+        
+        if(comprador == null){
+            return new ArrayList<>();
+        }
+        
+        return comprador.getCartoes();
+    }
+    
     public static boolean adicionarCartao(String compradorId, String numero, String titular, String cvv, String nome_meio){
         Catalogo catalogo = Catalogo.getInstance();
         

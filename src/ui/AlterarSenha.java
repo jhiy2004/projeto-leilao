@@ -112,7 +112,7 @@ public class AlterarSenha extends javax.swing.JDialog {
         UsuarioController uc = new UsuarioController();
         
         try {
-            uc.alterarSenha(senha, user);
+            uc.alterarSenhaUsuario(senha, user);
             javax.swing.JOptionPane.showMessageDialog(this, "Senha alterada com sucesso.");
         } catch (IOException ex) {
             Logger.getLogger(AlterarSenha.class.getName()).log(Level.SEVERE, null, ex);

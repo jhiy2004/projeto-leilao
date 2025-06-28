@@ -4,6 +4,7 @@
  */
 package ui;
 
+import controller.AnuncioController;
 import java.time.LocalDateTime;
 import model.Anuncio;
 import model.Comprador;
@@ -89,7 +90,7 @@ public class DarLance extends javax.swing.JDialog {
 
             if (valor > anuncio.getValorAtual()) {
                 Lance lance = new Lance(null, (Comprador) Sistema.getInstance().getUsuarioLogado(), valor, LocalDateTime.now(), anuncio);
-                anuncio.atualizarLance(lance);
+                AnuncioController.atualizarLance(anuncio, lance);
                 javax.swing.JOptionPane.showMessageDialog(this,
                     "Lance efetuado com sucesso!",
                     "Sucesso",
