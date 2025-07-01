@@ -104,4 +104,36 @@ public class CompradorController {
         
         return true;
     }
+
+    public static boolean adicionarAvaliacaoCompra(String compraId, int nota) {
+        if (nota < 1 || nota > 10) {
+            System.out.println("Nota inválida. Deve estar entre 1 e 10.");
+            return false;
+        }
+
+        Catalogo catalogo = Catalogo.getInstance();
+        Compra compra = catalogo.getCompras().get(compraId);
+
+        if (compra == null) {
+            System.out.println("Compra não encontrada.");
+            return false;
+        }
+
+        if (!compra.isConcluida()) {
+            System.out.println("Só é possível avaliar compras concluídas.");
+            return false;
+        }
+
+        if (compra.getAvaliacao() != null) {
+            System.out.println("Compra já foi avaliada.");
+            return false;
+        }
+
+        Avaliacao avaliacao = new Avaliacao(null, nota, compra);
+
+        compra.setAvaliacao(avaliacao);
+        catalogo.inserirAvaliacao(avaliacao);
+
+        return true;
+    }
 }
